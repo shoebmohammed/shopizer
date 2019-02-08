@@ -11,8 +11,8 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %>
-<%@ taglib uri="/WEB-INF/shopizer-functions.tld" prefix="display" %> 
- 
+<%@ taglib uri="/WEB-INF/shopizer-functions.tld" prefix="display" %>
+
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
@@ -23,7 +23,7 @@ response.setDateHeader ("Expires", -1);
 
 <script type="text/javascript">
 //***** Search code *****
-$(document).ready(function() { 
+$(document).ready(function() {
 
     //post search form
    $(".searchButton").click(function(e){
@@ -37,15 +37,15 @@ $(document).ready(function() {
 				return;
 			}
 			$('#hiddenQuery').val(q);
-			var uri = '<c:url value="/shop/search/search.html"/>;
+			var uri = <c:url value="/shop/search/search.html"/>;
 			e.preventDefault();//action url will be overriden
 	        $('#hiddenSearchForm').attr('action',url).submit();
 
    });
 
-   
-   
-	
+
+
+
    var searchElements = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
 		queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -65,15 +65,15 @@ $(document).ready(function() {
         	}
     	}
 	});
-   
+
    searchElements.initialize();
 
 
 	var searchTemplate =  Hogan.compile([
 				     '<p class="suggestion-text"><font color="black">{{value}}</font></p>'
 	             ].join(''));
-	
-	
+
+
     //full view search
 	$('#searchField.typeahead').typeahead({
 	    hint: true,
@@ -87,7 +87,7 @@ $(document).ready(function() {
 	    	suggestion: function (data) { return searchTemplate.render(data); }
 	    }
 	});
-    
+
     //responsive
 	$('#responsiveSearchField.typeahead').typeahead({
 	    hint: true,
@@ -121,7 +121,7 @@ $(document).ready(function() {
 											<th>&nbsp;</th>
 										</tr>
 									</thead>
-									
+
 									<tbody>
 										{{#shoppingCartItems}}
 										<tr id="{{productId}}" class="cart-product">
@@ -140,7 +140,7 @@ $(document).ready(function() {
 										{{/shoppingCartItems}}
 									</tbody>
 								</table>
-								<div class="panel-body text-right">	
+								<div class="panel-body text-right">
 									    <a href="#" onclick="viewShoppingCartPage();" class="btn btn-group btn-success btn-minicart"><s:message code="label.checkout" text="Checkout"/></a>
 								</div>
 								{{/code}}
@@ -252,7 +252,7 @@ $(document).ready(function() {
                         </div>
 						<!-- header-top-first end -->
                      </div>
-                    
+
                     <div class="col-xs-10 col-sm-10">
 
 							<!-- header-top-second start -->
@@ -264,7 +264,7 @@ $(document).ready(function() {
 								<div class="header-top-dropdown">
                                         <!-- search box -->
                                         <c:if test="${requestScope.CONFIGS['displaySearchBox'] == true}">
-                                        <div id="searchFieldGroup" class="btn-group dropdown no-responsive">  
+                                        <div id="searchFieldGroup" class="btn-group dropdown no-responsive">
 					      					<input id="searchField" class="typeahead form-control" name="q" type="text"  />" autocomplete="off" spellcheck="false" dir="auto" value="<c:out value="${q}"/>">
                                         </div>
                                         <div class="btn-group dropdown">
@@ -285,13 +285,13 @@ $(document).ready(function() {
                                        			<li><a href="<c:url value="/shop?locale=${language.code}"/>"><s:message code="lang.${language.code}" text="${language.code}" /></a></li>
                                        			</c:forEach>
                                        		</ul>
-                                        </div> 
-                                        </c:if>                                       
+                                        </div>
+                                        </c:if>
                                         <!-- Customer account menu populated by JS -->
                                         <c:if test="${requestScope.CONFIGS['displayCustomerSection'] == true}">
                                         <div class="btn-group dropdown" id="customerAccount"></div>
                                         </c:if>
-                                        
+
                                         <!-- Shopping cart menu populated by JS -->
                                         <c:if test="${requestScope.CONFIGS['allowPurchaseItems'] == true}">
                                         <div id="miniCart" class="btn-group dropdown">
@@ -309,10 +309,10 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
-			<!-- header-top end -->	
+			<!-- header-top end -->
 			</div>
 
-                <!-- logo -->     
+                <!-- logo -->
                 <header class="header fixed clearfix">
 				<div class="container">
 					<div class="row">
@@ -338,14 +338,14 @@ $(document).ready(function() {
 						                			<h1>
 						                			<a class="grey store-name" href="<c:url value="/shop/"/>">
 						                				<c:out value="${requestScope.MERCHANT_STORE.storename}"/>
-						                			</a>  
+						                			</a>
 						                			</h1>
 						                			</div>
 						                		</c:otherwise>
 						                </c:choose>
 									</c:otherwise>
 								</c:choose>
-								
+
 							</div>
 							<!-- header-left end -->
 

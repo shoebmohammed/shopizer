@@ -36,9 +36,9 @@ $(function(){
 								<!-- select options -->
 								<c:if test="${options!=null && not product.productVirtual}">
 									<c:forEach items="${options}" var="option" varStatus="status">
-										<div class="control-group form-group"> 
+										<div class="control-group form-group">
 	                        				<label><strong><c:out value="${option.name}"/></strong></label>
-	                        				<div class="controls">	       							
+	                        				<div class="controls">
 											<c:choose>
 												<c:when test="${option.type=='select'}">
 													<select id="${status.index}" name="${status.index}" class="attribute">
@@ -67,8 +67,8 @@ $(function(){
 														<input type="checkbox" class="attribute" id="${status.index}" name="${status.index}" value="<c:out value="${optionValue.id}"/>"<c:if test="${optionValue.defaultAttribute==true}"> checked="checked" </c:if>  />
 														<c:out value="${optionValue.name}"/><c:if test="${optionValue.price!=null}">&nbsp; (<c:out value="${optionValue.price}"/>)</c:if><br/>
 													</c:forEach>
-												</c:when>										
-											</c:choose>				       							
+												</c:when>
+											</c:choose>
 		                                 	<span class="help-inline"></span>
 	                        				</div>
 	                    			</div>
@@ -83,11 +83,13 @@ $(function(){
 										<input id="qty-productId-<c:out value="${product.id}" />" class="input-mini form-control form-control-sm" placeholder="1" type="text">
 									</div>
 								</c:if>
+
 									<button class="btn addToCart addToCartButton btn-buy" type="button" productId="<c:out value="${product.id}" />"><s:message code="button.label.addToCart" text="Add to cart"/></button>
+
 								</div>
 								</c:if>
 								</c:if>
 								<!-- TODO quantity == 0 contact us for details on the product -->
-							
+
 
 							</form>

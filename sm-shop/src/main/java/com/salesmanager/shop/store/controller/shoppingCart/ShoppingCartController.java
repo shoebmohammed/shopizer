@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,9 +89,14 @@ import com.salesmanager.shop.utils.LanguageUtils;
  * @author Umesh
  */
 
-@Controller
-@RequestMapping("/shop/cart/")
+@RestController
+@RequestMapping("/shop/cart")
 public class ShoppingCartController extends AbstractController {
+
+	@RequestMapping("/wishlist")
+	public String displayWishlist(){
+		return "Hi, This is wishlist";
+	}
 
 	private static final Logger LOG = LoggerFactory.getLogger(ShoppingCartController.class);
 	@Inject
@@ -113,14 +119,14 @@ public class ShoppingCartController extends AbstractController {
 
 	@Inject
 	private ShoppingCartFacade shoppingCartFacade;
-	
+
 	@Inject
 	private LabelUtils messages;
-	
+
 	@Inject
 	private LanguageUtils languageUtils;
-	
-	
+
+
 
 	/**
 	 * Add an item to the ShoppingCart (AJAX exposed method)
@@ -135,7 +141,7 @@ public class ShoppingCartController extends AbstractController {
 
 
 		ShoppingCartData shoppingCart=null;
-		
+
 
 		//Look in the HttpSession to see if a customer is logged in
 	    MerchantStore store = getSessionAttribute(Constants.MERCHANT_STORE, request);
@@ -143,8 +149,15 @@ public class ShoppingCartController extends AbstractController {
 	    Customer customer = getSessionAttribute(  Constants.CUSTOMER, request );
 
 
+			System.out.println("from shopping cart controller");
+			System.out.println("from shopping cart controller");
+			System.out.println("from shopping cart controller");
+			System.out.println("from shopping cart controller");
+			System.out.println("from shopping cart controller");
+			System.out.println("from shopping cart controller");
 		if(customer != null) {
 			com.salesmanager.core.model.shoppingcart.ShoppingCart customerCart = shoppingCartService.getByCustomer(customer);
+
 			if(customerCart!=null) {
 				shoppingCart = shoppingCartFacade.getShoppingCartData( customerCart, language);
 
@@ -155,7 +168,7 @@ public class ShoppingCartController extends AbstractController {
 			}
 		}
 
-		
+
 		if(shoppingCart==null && !StringUtils.isBlank(item.getCode())) {
 			shoppingCart = shoppingCartFacade.getShoppingCartData(item.getCode(), store, language);
 		}
@@ -224,38 +237,38 @@ public class ShoppingCartController extends AbstractController {
     {
 
         LOG.debug( "Starting to calculate shopping cart..." );
-        
+
         Language language = (Language)request.getAttribute(Constants.LANGUAGE);
-        
-        
+
+
 		//meta information
 		PageInformation pageInformation = new PageInformation();
 		pageInformation.setPageTitle(messages.getMessage("label.cart.placeorder", locale));
 		request.setAttribute(Constants.REQUEST_PAGE_INFORMATION, pageInformation);
-        
-        
+
+
 	    MerchantStore store = (MerchantStore) request.getAttribute(Constants.MERCHANT_STORE);
 	    Customer customer = getSessionAttribute(  Constants.CUSTOMER, request );
 
         /** there must be a cart in the session **/
         String cartCode = (String)request.getSession().getAttribute(Constants.SHOPPING_CART);
-        
+
         if(StringUtils.isBlank(cartCode)) {
         	//display empty cart
             StringBuilder template =
                     new StringBuilder().append( ControllerConstants.Tiles.ShoppingCart.shoppingCart ).append( "." ).append( store.getStoreTemplate() );
                 return template.toString();
         }
-                
+
         ShoppingCartData shoppingCart = shoppingCartFacade.getShoppingCartData(customer, store, cartCode, language);
-        
+
         if(shoppingCart == null) {
         	//display empty cart
             StringBuilder template =
                     new StringBuilder().append( ControllerConstants.Tiles.ShoppingCart.shoppingCart ).append( "." ).append( store.getStoreTemplate() );
                 return template.toString();
         }
-        
+
         Language lang = languageUtils.getRequestLanguage(request, response);
         //Filter unavailables
         List<ShoppingCartItem> unavailables = new ArrayList<ShoppingCartItem>();
@@ -270,18 +283,18 @@ public class ShoppingCartController extends AbstractController {
         	} else {
         		availables.add(item);
         	}
-        	
+
         }
         shoppingCart.setShoppingCartItems(availables);
         shoppingCart.setUnavailables(unavailables);
-        
+
 
 
         model.addAttribute( "cart", shoppingCart );
-        
-        
-        
-        
+
+
+
+
 
         /** template **/
         StringBuilder template =
@@ -289,26 +302,26 @@ public class ShoppingCartController extends AbstractController {
         return template.toString();
 
     }
-    
-    
+
+
 	@RequestMapping(value={"/shoppingCartByCode"},  method = { RequestMethod.GET })
 	public String displayShoppingCart(@ModelAttribute String shoppingCartCode, final Model model, HttpServletRequest request, HttpServletResponse response, final Locale locale) throws Exception{
 
 			MerchantStore merchantStore = (MerchantStore)request.getAttribute(Constants.MERCHANT_STORE);
 			Customer customer = getSessionAttribute(  Constants.CUSTOMER, request );
-			
+
 			Language language = (Language)request.getAttribute(Constants.LANGUAGE);
-			
+
 			if(StringUtils.isBlank(shoppingCartCode)) {
 				return "redirect:/shop";
 			}
-			
+
 			ShoppingCartData cart =  shoppingCartFacade.getShoppingCartData(customer,merchantStore,shoppingCartCode,language);
 			if(cart==null) {
 				return "redirect:/shop";
 			}
-			
-			
+
+
 	        Language lang = languageUtils.getRequestLanguage(request, response);
 	        //Filter unavailables
 	        List<ShoppingCartItem> unavailables = new ArrayList<ShoppingCartItem>();
@@ -323,12 +336,12 @@ public class ShoppingCartController extends AbstractController {
 	        	} else {
 	        		availables.add(item);
 	        	}
-	        	
+
 	        }
 	        cart.setShoppingCartItems(availables);
 	        cart.setUnavailables(unavailables);
-			
-			
+
+
 			//meta information
 			PageInformation pageInformation = new PageInformation();
 			pageInformation.setPageTitle(messages.getMessage("label.cart.placeorder", locale));
@@ -340,7 +353,7 @@ public class ShoppingCartController extends AbstractController {
 	        StringBuilder template =
 	            new StringBuilder().append( ControllerConstants.Tiles.ShoppingCart.shoppingCart ).append( "." ).append( merchantStore.getStoreTemplate() );
 	        return template.toString();
-			
+
 
 
 	}
@@ -378,29 +391,29 @@ public class ShoppingCartController extends AbstractController {
 	    MerchantStore store = getSessionAttribute(Constants.MERCHANT_STORE, request);
 	    Language language = (Language)request.getAttribute(Constants.LANGUAGE);
 	    Customer customer = getSessionAttribute(  Constants.CUSTOMER, request );
-        
+
         /** there must be a cart in the session **/
         String cartCode = (String)request.getSession().getAttribute(Constants.SHOPPING_CART);
-        
+
         if(StringUtils.isBlank(cartCode)) {
         	return "redirect:/shop";
         }
-                
+
         ShoppingCartData shoppingCart = shoppingCartFacade.getShoppingCartData(customer, store, cartCode, language);
-                
+
 		ShoppingCartData shoppingCartData=shoppingCartFacade.removeCartItem(lineItemId, shoppingCart.getCode(),store,language);
 
 		if(shoppingCartData == null) {
 			return "redirect:/shop";
 		}
-		
+
 		if(CollectionUtils.isEmpty(shoppingCartData.getShoppingCartItems())) {
 			shoppingCartFacade.deleteShoppingCart(shoppingCartData.getId(), store);
 			return "redirect:/shop";
 		}
-		
-		
-		
+
+
+
 		return Constants.REDIRECT_PREFIX + "/shop/cart/shoppingCart.html";
 
 
@@ -419,19 +432,19 @@ public class ShoppingCartController extends AbstractController {
 	public @ResponseBody String updateShoppingCartItem( @RequestBody final ShoppingCartItem[] shoppingCartItems, final HttpServletRequest request, final  HttpServletResponse response)  {
 
 		AjaxResponse ajaxResponse = new AjaxResponse();
-		
-		
-		
+
+
+
 	    MerchantStore store = getSessionAttribute(Constants.MERCHANT_STORE, request);
 	    Language language = (Language)request.getAttribute(Constants.LANGUAGE);
 
-        
+
         String cartCode = (String)request.getSession().getAttribute(Constants.SHOPPING_CART);
-        
+
         if(StringUtils.isBlank(cartCode)) {
         	return "redirect:/shop";
         }
-        
+
         try {
         	List<ShoppingCartItem> items = Arrays.asList(shoppingCartItems);
 			ShoppingCartData shoppingCart = shoppingCartFacade.updateCartItems(items, store, language);
@@ -446,6 +459,7 @@ public class ShoppingCartController extends AbstractController {
 
 
 	}
+
 
 
 }

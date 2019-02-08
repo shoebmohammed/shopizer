@@ -11,8 +11,8 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %>
-<%@ taglib uri="/WEB-INF/shopizer-functions.tld" prefix="display" %> 
- 
+<%@ taglib uri="/WEB-INF/shopizer-functions.tld" prefix="display" %>
+
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
@@ -71,14 +71,14 @@ response.setDateHeader ("Expires", -1);
 											{{^image}}
 												&nbsp
 											{{/image}}
-									</div>	
+									</div>
 									<div class="cart-content">
 											<h4><a href="#">{{quantity}} x {{name}}</a></h4>
 											<span class="cart-price">{{price}}</span>
 									</div>
 									<div class="cart-del">
 											<button productid="{{productId}}" class="close removeProductIcon" onclick="removeItemFromMinicart('{{id}}')"><i class="fa fa-times-circle"></i></a>
-									</div>			
+									</div>
 							</li>
                             {{/shoppingCartItems}}
                             <li>&nbsp;</li>
@@ -162,7 +162,7 @@ response.setDateHeader ("Expires", -1);
 						                			<h1>
 						                			<a class="grey store-name" href="<c:url value="/shop/"/>">
 						                				<c:out value="${requestScope.MERCHANT_STORE.storename}"/>
-						                			</a>  
+						                			</a>
 						                			</h1>
 						                		</c:otherwise>
 						                </c:choose>
@@ -171,12 +171,12 @@ response.setDateHeader ("Expires", -1);
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-5 hidden-sm hidden-xs">
-						
+
 							<c:if test="${requestScope.CONTENT['headerMessage']!=null}">
 									<!-- A content logo exist -->
 									<sm:pageContent contentCode="headerMessage"/>
 							</c:if>
-						
+
 							<!--
 							<div class="single-header-bottom-info">
 								<div class="header-bottom-icon">
@@ -197,22 +197,26 @@ response.setDateHeader ("Expires", -1);
         							<button class="btn btn-default searchButton" type="button"><s:message code="label.generic.search" text="Search"/></button>
    								</span>
 								<!-- important for submitting search -->
-                                <form id="hiddenSearchForm" method="post" action="<c:url value="/shop/search/search.html"/>">
+                <form id="hiddenSearchForm" method="post" action="<c:url value="/shop/search/search.html"/>">
 										<input type="hidden" id="hiddenQuery" name="q">
 								</form>
 							</div>
-							
+
 
 							</c:if>
 						    <!-- Shopping cart -->
-						    <c:if test="${requestScope.CONFIGS['allowPurchaseItems'] == true}">						    						
+						    <c:if test="${requestScope.CONFIGS['allowPurchaseItems'] == true}">
+								<div class = "header-bottom-right wish-list">
+									<a class="" href="<c:url value="/shop/cart/wishlist"/>">WishList</a></div>
 								<div class="header-bottom-right">
 									<div class="shop-cart" id="miniCartSummary"></div>
 									<div class="shop-cart-hover fix">
 									<ul id="miniCartDetails"></ul>
 									</div>
 								</div>
+
 							</c:if>
+
 						</div>
 					</div>
 				</div>

@@ -123,7 +123,7 @@
 												content="${requestScope.MERCHANT_STORE.storename}" />
 											<meta itemprop="currency"
 												content="<c:out value="${requestScope.MERCHANT_STORE.currency.code}" />" />
-											<span id="productPrice" class="price"> <c:choose>
+											<span id="productPrice" class="price	"> <c:choose>
 													<c:when test="${product.discounted}">
 														<del>
 															<c:out value="${product.originalPrice}" />
@@ -141,6 +141,8 @@
 									</h4>
 									<jsp:include
 										page="/pages/shop/common/catalog/addToCartProduct.jsp" />
+									<jsp:include
+										page="/pages/shop/common/catalog/addToWishListProduct.jsp" />
 									<div class="action-heiper">
 										<iframe
 											src="https://www.facebook.com/plugins/share_button.php?locale=${LOCALE.language}_${LOCALE.country}&href=<c:out value="${requestScope.CONFIGS['SHOP_SCHEME']}"/>%3A%2F%2F<c:out value="${requestScope.MERCHANT_STORE.domainName}"/><c:url value="/shop/${product.description.friendlyUrl}.html"/>&layout=button_count&size=large&mobile_iframe=true&appId=<c:out value="${requestScope.CONFIGS['shopizer.facebook-appid']}"/>&width=83&height=28"
@@ -287,12 +289,12 @@
 </div>
 
 <script>
-		
+
 		$(function () {
-			
+
 			$('.popup-img').magnificPopup({type:'image'});
-		
-		
+
+
 		    $('.thumbImg').click(function(){
 		    	var igId = $(this).attr('imgId');
 		        var url = $(this).attr('rel');
@@ -301,10 +303,9 @@
 		        //re bind action
 		        $('.popup-img').magnificPopup({type:'image'});
 		    })
-		    
+
 		})
-		
 
-			
+
+
 		</script>
-

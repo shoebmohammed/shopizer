@@ -18,7 +18,6 @@
 		<version>1.5.3.RELEASE</version>
 	</parent>
 
-
 	<properties>
 		<java.version>1.8</java.version>
 		<shopizer.version>2.3.0</shopizer.version>
@@ -40,6 +39,8 @@
 		<org.elasticsearch-version>5.6.12</org.elasticsearch-version>
 		<io.searchbox.jest-version>5.3.3</io.searchbox.jest-version>
 		<jackson-version>2.9.5</jackson-version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8	</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -132,8 +133,8 @@
 			<artifactId>json-simple</artifactId>
 			<version>${simple-json-version}</version>
 		</dependency>
-		
-		<!-- sm-search -->		
+
+		<!-- sm-search -->
 		<dependency>
 			<groupId>com.shopizer</groupId>
 			<artifactId>sm-search</artifactId>
@@ -148,9 +149,9 @@
 					<artifactId>jest</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency> 
-		
-		<!-- Elastic search -->				
+		</dependency>
+
+		<!-- Elastic search -->
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>

@@ -22,11 +22,12 @@ public interface ShoppingCartService extends SalesManagerEntityService<Long, Sho
 	ShoppingCart getByCode(String code, MerchantStore store) throws ServiceException;
 
 	ShoppingCart getByCustomer(Customer customer) throws ServiceException;
+	
 
 	/**
 	 * Creates a list of ShippingProduct based on the ShoppingCart if items are
 	 * virtual return list will be null
-	 * 
+	 *
 	 * @param cart
 	 * @return
 	 * @throws ServiceException
@@ -35,7 +36,7 @@ public interface ShoppingCartService extends SalesManagerEntityService<Long, Sho
 
 	/**
 	 * Looks if the items in the ShoppingCart are free of charges
-	 * 
+	 *
 	 * @param cart
 	 * @return
 	 * @throws ServiceException
@@ -46,7 +47,7 @@ public interface ShoppingCartService extends SalesManagerEntityService<Long, Sho
 
 	/**
 	 * Populates a ShoppingCartItem from a Product and attributes if any
-	 * 
+	 *
 	 * @param product
 	 * @return
 	 * @throws ServiceException
@@ -70,13 +71,13 @@ public interface ShoppingCartService extends SalesManagerEntityService<Long, Sho
 
 	/**
 	 * Determines if the shopping cart requires shipping
-	 * 
+	 *
 	 * @param cart
 	 * @return
 	 * @throws ServiceException
 	 */
 	boolean requiresShipping(ShoppingCart cart) throws ServiceException;
-	
+
 	/**
 	 * Removes a shopping cart item
 	 * @param item
