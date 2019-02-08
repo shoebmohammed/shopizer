@@ -40,6 +40,7 @@ public class ProductReviewEntity extends ShopEntity implements Serializable {
 	}
 
 	public Double getRating() {
+		System.out.println(rating);
 		return rating;
 	}
 	public void setRating(Double rating) {

@@ -103,7 +103,7 @@ response.setDateHeader ("Expires", -1);
 										<table>
 										<c:forEach items="${attributes}" var="attribute" varStatus="status">
 										<tr>
-	                        				<td><c:out value="${attribute.name}"/> : </td>
+	                        				<td><c:out value="${attribute.name}"/> :  </td>
 											<td><c:out value="${attribute.readOnlyValue.description}" /></td>
 										</tr>
 									</c:forEach>

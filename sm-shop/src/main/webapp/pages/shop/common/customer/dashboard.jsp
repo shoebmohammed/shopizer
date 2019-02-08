@@ -54,8 +54,7 @@ $(document).ready(function() {
 	    
 	    event.preventDefault();
 	});
-});	
-	
+});
 </script>
 
 
@@ -146,6 +145,7 @@ $(document).ready(function() {
 	
 							<div class="checkout-box">
 								<span class="box-title">
+									<p></p>
 									<p class="p-title"><s:message code="label.customer.myaccount" text="My account"/></p>
 								</span>
 								<jsp:include page="/pages/shop/common/customer/customerProfileMenu.jsp" />

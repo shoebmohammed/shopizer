@@ -31,10 +31,70 @@ response.setDateHeader ("Expires", -1);
 								  		<sec:authorize access="!hasRole('AUTH_CUSTOMER') and !fullyAuthenticated">
 								  			<p class="muted"><s:message code="label.product.reviews.logon.write" text="You have to be authenticated to write a review" /></p>
 								  		</sec:authorize>
-									
-									
+    <%--pradeep added this div--%>
+<div class="row">
+<div class="col-md-5">
+	<div>
+	<h2>Star Rating</h2>
+		<div id="averageRating"></div>
+        <div>
+        </div>
+	</div><br />
+  <div>
+	  <ul>
+		  <li class="row" style="display: flex; margin-bottom: 5px">
+			  <a aria-label="5 star (86%)" class="a-size-small a-link-normal 5star col-md-3" title="5 star" href="" style="padding-left: 15px; padding-right: 0; ">5 star</a>
+			  <div class="progress col-md 4" style="width:40%; margin: 0; ">
+				  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+					  <span class="sr-only">70% Complete</span>
+				  </div>
+			  </div>
+			  <a class="a-size-base a-link-normal 5star histogram-review-count a-color-secondary col-md-3" tabindex="-1" href="" style="" >70%</a>
+		  </li>
+		  <li class="row" style="display: flex; margin-bottom: 5px">
+			  <a aria-label="4 star (86%)" class="a-size-small a-link-normal 5star col-md-3" title="5 star" href="" style="padding-left: 15px; padding-right: 0; ">4 star</a>
+			  <div class="progress col-md 4" style="width:40%; margin: 0; ">
+				  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+					  <span class="sr-only">50% Complete</span>
+				  </div>
+			  </div>
+			  <a class="a-size-base a-link-normal 5star histogram-review-count a-color-secondary col-md-3" tabindex="-1" href="" style="" >50%</a>
+		  </li>
+		  <li class="row" style="display: flex; margin-bottom: 5px">
+			  <a aria-label="3 star (86%)" class="a-size-small a-link-normal 5star col-md-3" title="5 star" href="" style="padding-left: 15px; padding-right: 0; ">3 star</a>
+			  <div class="progress col-md 4" style="width:40%; margin: 0; ">
+				  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:30%">
+					  <span class="sr-only">30% Complete</span>
+				  </div>
+			  </div>
+			  <a class="a-size-base a-link-normal 5star histogram-review-count a-color-secondary col-md-3" tabindex="-1" href="" style="" >30%</a>
+		  </li>
+		  <li class="row" style="display: flex; margin-bottom: 5px">
+			  <a aria-label="2 star (86%)" class="a-size-small a-link-normal 5star col-md-3" title="5 star" href="" style="padding-left: 15px; padding-right: 0; ">2 star</a>
+			  <div class="progress col-md 4" style="width:40%; margin: 0; ">
+				  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+					  <span class="sr-only">60% Complete</span>
+				  </div>
+			  </div>
+			  <a class="a-size-base a-link-normal 5star histogram-review-count a-color-secondary col-md-3" tabindex="-1" href="" style="" >60%</a>
+		  </li><li class="row" style="display: flex; margin-bottom: 5px">
+		  <a aria-label="1 star (86%)" class="a-size-small a-link-normal 5star col-md-3" title="5 star" href="" style="padding-left: 15px; padding-right: 0; ">1 star</a>
+		  <div class="progress col-md 4" style="width:40%; margin: 0; ">
+			  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+				  <span class="sr-only">40% Complete</span>
+			  </div>
+		  </div>
+		  <a class="a-size-base a-link-normal 5star histogram-review-count a-color-secondary col-md-3" tabindex="-1" href="" style="" >40%</a>
+	  </li>
+
+	  </ul>
+  </div>
+</div>
+
+									<div class="col-md-6">
 									<c:if test="${reviews!=null}">
 										<c:forEach items="${reviews}" var="review" varStatus="status">
+											  <c:if test="${review.rating > 0}">
 											    <p>
 											    <div class="stars" id="productRating<c:out value="${status.count}"/>" style="width: 100px;">
 											    </div>
@@ -46,14 +106,27 @@ response.setDateHeader ("Expires", -1);
    	 											</p>
    	 											<script>
 												  	$(function() {
-														$('#productRating<c:out value="${status.count}"/>').raty({ 
-															readOnly: true, 
+														$('#productRating<c:out value="${status.count}"/>').raty({
+															readOnly: true,
 															half: true,
 															path : '<c:url value="/resources/img/stars/"/>',
 															score: <c:out value="${review.rating}" />
 														});
 												  	});
 								  			   </script>
+											  </c:if>
 										</c:forEach>
 								 	 </c:if>
+									</div>
+</div>
 
+<script>
+    $(function() {
+        $('#averageRating').raty({
+            readOnly: true,
+            half: true,
+            path : '<c:url value="/resources/img/stars/"/>',
+            score: <c:out value="${4.90}" />
+        });
+    });
+</script>
