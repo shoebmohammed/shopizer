@@ -113,13 +113,13 @@ public class ShopProductController {
 		@RequestMapping(value = {"/query/save"}, method=RequestMethod.POST)
     @ResponseBody
     public String saveQuery() {
-        return "figure out how to save the query in db in this project";
+        return "save query log through ajax from file ShopProductController.java";
     }
 
 		@RequestMapping(value = {"/reply/save"}, method= RequestMethod.POST)
     @ResponseBody
     public String saveReply() {
-        return "figure out how to save the reply in db in this project";
+        return "save reply log through ajax from file ShopProductController.java";
     	}
 	//**
 
