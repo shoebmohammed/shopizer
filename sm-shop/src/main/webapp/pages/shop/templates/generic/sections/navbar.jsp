@@ -117,8 +117,10 @@ $(document).ready(function() {
 												<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>		
 											</c:forEach>
 										</ul>
+										<ul>
+										</ul>
 										</c:if>
-									   </li>
+										 </li>
 								</c:forEach>
 							    <c:forEach items="${requestScope.CONTENT_PAGE}" var="content">
 										<c:if test="${content.content.linkToMenu}">

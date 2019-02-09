@@ -15,7 +15,7 @@ response.setDateHeader ("Expires", -1);
 <%@page pageEncoding="UTF-8"%>
 
         <!-- home banner -->
-        <!-- slider-area-start -->
+				<!-- slider-area-start -->
 		<div class="slider-area">
 		<c:choose>
 		<c:when test="${requestScope.CONTENT['bannerImage']!=null}">
@@ -149,34 +149,55 @@ response.setDateHeader ("Expires", -1);
 		
 	<!-- load products -->	
 	<script>
-	       $(document).ready(function() {
+		var products;
+	       $(document).ready( function() {
 	    	   
 	    	   $('#featuredItemsContainer').LoadingOverlay("show");
 	    	   
 				var tpl = $('#productBoxTemplate').text();
-			    tpl = tpl.replace("COLUMN-SIZE", "3");
+					tpl = tpl.replace("COLUMN-SIZE", "3");
 			    $('#productBoxTemplate').text(tpl);
-
 				//get products
 				loadFeaturedItems();
-
           })
-		  
-		  
-		  
 		  function loadFeaturedItems() {
 		  	$.ajax({
 				type: 'GET',
 				dataType: "json",
 				url: '<c:url value="/"/>services/public/<c:out value="${requestScope.MERCHANT_STORE.code}"/>/products/group/FEATURED_ITEM',
 				success: function(productList) {
-
-					//set in slider
+					// Shiva
 					var productsTemplate = Hogan.compile(document.getElementById("productBoxTemplate").innerHTML);
+					for(let i in productList.products){
+						productList.products[i]['colors']=[{id:1,color:'red'},{id:2,color:'green'}];
+					}
 					var productsRendred = productsTemplate.render(productList);
 					$('#featuredItemsContainer').append(productsRendred);
 					$('#featuredItemsContainer').LoadingOverlay("hide", true);
+					$(".colors").hide(true);
+					console.log(productList);
 					//call init bindings
+					for(let i in productList.products){
+						$(document).on("mouseover",`#`+productList.products[i].description.id,()=>{
+							$("."+productList.products[i].description.id).show(true);
+							$(`#`+productList.products[i].description.id).css("height","auto");
+							});
+						$(document).on("mouseout","#"+productList.products[i].description.id,()=>{
+							$("."+productList.products[i].description.id).hide(true);
+							$(`#`+productList.products[i].description.id).css("height","440px");
+						});
+					}
+					for(let i in productList.products){
+						for(let j in productList.products[i].colors){
+							$(document).on("mouseover","#"+productList.products[i].description.id+"-"+productList.products[i].colors[j].id,()=>{
+								$("#img-"+productList.products[i].description.id).css("background-color",productList.products[i].colors[j].color);	
+							});
+							$(document).on("mouseout","#"+productList.products[i].description.id+"-"+productList.products[i].colors[j].id,()=>{
+								$("#img-"+productList.products[i].description.id).css("background-color","");	
+							});
+						}
+					}
+					// Shiva
 					initBindings();
 					setProductRating(productList.products);
 				},
@@ -185,10 +206,7 @@ response.setDateHeader ("Expires", -1);
 					alert('Error ' + jqXHR + "-" + textStatus + "-" + errorThrown);
 				}
 			});
-		  }
-	       
-	        
-	       
+			}
           </script>
 		  <!--- END -->
 		

@@ -36,18 +36,20 @@ response.setDateHeader ("Expires", -1);
 				<!-- include all header js and css -->
                 <jsp:include page="/pages/shop/templates/generic/sections/shopLinks.jsp" />
                 
+    
                 
-                
-    <script type="text/html" id="productBoxTemplate">
-			{{#products}}
-                        <div itemscope itemtype="http://schema.org/Enumeration" class="col-md-COLUMN-SIZE col-sm-6 col-xs-12 product" item-order="{{sortOrder}}" item-name="{{description.name}}" item-price="{{price}}" data-id="{{id}}">
-								<div class="thumbnail product-img">
-                                    {{#image}}
+		<script type="text/html" id="productBoxTemplate" >
+				{{#products}}
+					<!-- Shiva -->
+                        <div itemscope itemtype="http://schema.org/Enumeration" id="{{description.id}}" class="col-md-COLUMN-SIZE col-sm-6 col-xs-12 product" item-order="{{sortOrder}}" item-name="{{description.name}}" item-price="{{price}}"  data-id="{{id}}">
+								<div id="img-{{description.id}}"  class="thumbnail product-img" >
+																		{{#image}}						
 									<a href="<c:url value="/shop/product/" />{{description.friendlyUrl}}.html">
-										<img src="<c:url value=""/>{{image.imageUrl}}" alt="" />
+										<img src="<c:url value="{{image.imageUrl}}"/>" alt="" />
 									</a>
 									{{/image}}
 								</div>
+
 								<div class="product-content text-center">
 									<a class="listing-product-name" href="<c:url value="/shop/product/" />{{description.friendlyUrl}}.html"><h3 itemprop="name">{{description.name}}</h3></a>
 									<!--<span class="text-center width-100"><div class="stars" id="productRating_{{id}}"></div></span>-->
@@ -55,11 +57,18 @@ response.setDateHeader ("Expires", -1);
 										{{#discounted}}<del>{{originalPrice}}</del>&nbsp;<span itemprop="price" class="specialPrice">{{finalPrice}}</span>{{/discounted}}
 										{{^discounted}}<span itemprop="price">{{finalPrice}}</span>{{/discounted}}
 									</h4>
+									<h6 class="colors {{description.id}}">
+										{{#colors}}
+											<button id="{{description.id}}-{{id}}" style="border-radius:50%;padding:5px;margin-right:10px;color:white;background-color:{{color}}">{{color}} </button>
+										{{/colors}}							
+									</h6>
+									<!-- Shiva -->
 									<c:if test="${requestScope.CONFIGS['allowPurchaseItems'] == true}">
 									<div class="store-btn">
       									<div class="store-btn-addtocart"><a class="addToCart" href="javascript:void(0)" productId="{{id}}"><s:message code="button.label.addToCart" text="Add to cart"/></a></div>
    									</div>
 									</c:if>
+
 								</div>
 						</div>
 			{{/products}}

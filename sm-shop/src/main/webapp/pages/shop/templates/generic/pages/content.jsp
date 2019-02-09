@@ -37,10 +37,13 @@ response.setDateHeader ("Expires", -1);
     {{/image}}
     </div>
 	<!--  *** Product Name & Price Starts *** -->
+	<div>
+		</div>
 	<div class="caption">
 	<div class="product-details">
 	<div class="clearfix">
 		<h3 class="product-heading product-name" itemprop="name">{{description.name}}</h3>
+		<h3 class="product-heading product-name" itemprop="name">{{colors[0]}}</h3>
 		<h4 class="price">
 			{{#discounted}}<del>{{originalPrice}}</del>&nbsp;<span itemprop="price" class="specialPrice">{{finalPrice}}</span>{{/discounted}}
 			{{^discounted}}<span itemprop="price" class="specialPrice">{{finalPrice}}</span>{{/discounted}}
@@ -69,7 +72,11 @@ response.setDateHeader ("Expires", -1);
  var MAX_PRODUCTS = 500;
  var filter = null;
  var filterValue = null;
-
+ 
+ $(document).ready(()=>{
+	$("#productBoxTemplate").mouseover(()=>console.log('over'));
+	 $("#productBoxTemplate").mouseout(()=>console.log('out'));
+ })
  $(function(){
 
 	<c:if test="${productGroup!=null}">
@@ -77,6 +84,7 @@ response.setDateHeader ("Expires", -1);
 	</c:if>
 
  });
+
 
  
  	function loadItemsProducts() {
@@ -95,7 +103,6 @@ response.setDateHeader ("Expires", -1);
 		$('#productsContainer').append(productsRendred);
 		initBindings();
  	}
- 
 	function callBackLoadProducts(productList) {
 			
 			var productQty = productList.productCount + ' <s:message code="label.search.items.found" text="item(s) found" />';

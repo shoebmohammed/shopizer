@@ -21,7 +21,7 @@ public class IndexProduct implements JSONAware {
 	private String id;//required by the search framework
 
 	@SuppressWarnings("unchecked")
-	@Override
+	@Override46239
 	public String toJSONString() {
 		
 		
