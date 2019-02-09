@@ -533,7 +533,6 @@ public class ProductApi {
 		Language language = languageUtils.getRESTLanguage(request, merchantStore);	
 		
 		ReadableProduct product = productFacade.getProduct(merchantStore, id, language);
-		
 		if(product==null) {
 			response.sendError(404, "Product not fount for id " + id);
 			return null;
