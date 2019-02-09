@@ -3,3 +3,9 @@
 wishlist button added with route /shop/cart/wishlist to display wishlist.
 
 A button added to add product to wishlist, with ajax call logging some text.
+
+// Compare
+Add to compare and compare list added
+when the user clicks on add to compare from product page the product will be added to compare list
+to see compare list click on compare list
+added 1 file compare.jsp which is present in shopizer2/sm-shop/src/main/webapp/pages/shop/common/compare/compare.jsp

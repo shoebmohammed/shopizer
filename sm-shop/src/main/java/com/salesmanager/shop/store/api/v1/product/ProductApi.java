@@ -541,7 +541,6 @@ public class ProductApi {
 		return product;
 		
 	}
-	
 	@RequestMapping(value = "/products/{id}/variant", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(httpMethod = "POST", value = "Get product variations (variants) based on possible options", notes = "", produces = "application/json", response = ReadableProductPrice.class)
