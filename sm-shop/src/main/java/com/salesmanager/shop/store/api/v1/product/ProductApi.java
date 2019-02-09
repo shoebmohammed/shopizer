@@ -533,7 +533,6 @@ public class ProductApi {
 		Language language = languageUtils.getRESTLanguage(request, merchantStore);	
 		
 		ReadableProduct product = productFacade.getProduct(merchantStore, id, language);
-		
 		if(product==null) {
 			response.sendError(404, "Product not fount for id " + id);
 			return null;
@@ -542,7 +541,6 @@ public class ProductApi {
 		return product;
 		
 	}
-	
 	@RequestMapping(value = "/products/{id}/variant", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(httpMethod = "POST", value = "Get product variations (variants) based on possible options", notes = "", produces = "application/json", response = ReadableProductPrice.class)

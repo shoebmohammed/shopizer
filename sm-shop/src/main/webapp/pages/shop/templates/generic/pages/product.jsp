@@ -1,3 +1,4 @@
+<%@ page import="com.mysql.cj.api.Session" %>
 <%
 	response.setCharacterEncoding("UTF-8");
 	response.setHeader("Cache-Control", "no-cache");
@@ -148,6 +149,12 @@
 									<jsp:include page="/pages/shop/common/catalog/addToCartProduct.jsp" />
 									<jsp:include
 										page="/pages/shop/common/catalog/addToWishListProduct.jsp" />
+									<button class="btn btn-basic" onclick="addToCompare('${product.id}')" style="margin-top: 10px;">
+                      Add to Compare
+                  </button>
+									<br>
+                  <jsp:include page="/pages/shop/common/compare/compare.jsp" />
+
 									<div class="action-heiper">
 										<iframe src="https://www.facebook.com/plugins/share_button.php?locale=${LOCALE.language}_${LOCALE.country}&href=<c:out value="
 										 ${requestScope.CONFIGS['SHOP_SCHEME']}" />%3A%2F%2F
@@ -363,5 +370,26 @@
 	// }
 
 
+		function addToCompare(productId)
+		{
+				var product1 = sessionStorage.getItem('product1');
+				var product2 = sessionStorage.getItem('product2');
+				console.log(product1);
+				console.log(product2);
+				if(product1 === null){
+					sessionStorage.setItem('product1',productId);
+					alert('product added to compare list click compare list to see the product');
+				} else if(product1 === productId) {
+					alert('you already have this item in compare list');
+				} else if(product2 === null) {
+					sessionStorage.setItem('product2',productId);
+                    alert('product added to compare list click compare list to see the product');
+				} else if(product2 === productId){
+					alert('you already have this item in compare list');
+				} else {
+					alert('you already have 2 items in compare list');
+				}
+		}
+		</script>
 
 </script>
