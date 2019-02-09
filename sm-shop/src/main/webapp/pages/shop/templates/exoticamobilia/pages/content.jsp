@@ -9,30 +9,30 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %> 
- 
+<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %>
+
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
- 
+
  <script type="text/html" id="productBoxTemplate">
 {{#products}}
 <div itemscope itemtype="http://schema.org/Enumeration" class="col-md-4 productItem" item-order="{{sortOrder}}" item-name="{{description.name}}" item-price="{{price}}" data-id="{{id}}" class="col-sm-4">
 <div class="box-style-4 white-bg object-non-visible animated object-visible">
- 	{{#description.highlights}}  
+ 	{{#description.highlights}}
     <div class="ribbon-wrapper-green">
    		<div class="ribbon-green">
-   			{{description.highlights}} 
+   			{{description.highlights}}
    		</div>
    	</div>
     {{/description.highlights}}
 	{{^canBePurchased}}
 		<div class="sold-out-box">
 	    			<span class="sold-out-text"><s:message code="label.soldout" text="Sold out" /></span>
-	  	</div> 
+	  	</div>
 	{{/canBePurchased}}
 	<div class="product-image">
-    {{#image}}                              
+    {{#image}}
 	<img class="product-img" src="<c:url value=""/>{{image.imageUrl}}"><a class="overlay" href="<c:url value="/shop/product/" />{{description.friendlyUrl}}.html<sm:breadcrumbParam/>"><img class="product-img" src="<c:url value="/"/>{{image.imageUrl}}"></a>
     {{/image}}
     </div>
@@ -64,7 +64,7 @@ response.setDateHeader ("Expires", -1);
 
  <!-- don't change that script except max_oroducts -->
  <script>
- 
+
  var START_COUNT_PRODUCTS = 0;
  var MAX_PRODUCTS = 500;
  var filter = null;
@@ -78,16 +78,16 @@ response.setDateHeader ("Expires", -1);
 
  });
 
- 
+
  	function loadItemsProducts() {
- 		
+
  		//services/public/{store}/products/group/{code}
  		var url = '<%=request.getContextPath()%>/services/public/<c:out value="${requestScope.MERCHANT_STORE.code}"/>/products/group/<c:out value="${productGroup}"/>';
  		loadProducts(url,'#productsContainer');
 
  	}
 
- 	
+
  	function buildProductsList(productList, divProductsContainer) {
  		log('Products-> ' + productList.products.length);
 		var productsTemplate = Hogan.compile(document.getElementById("productBoxTemplate").innerHTML);
@@ -95,9 +95,9 @@ response.setDateHeader ("Expires", -1);
 		$('#productsContainer').append(productsRendred);
 		initBindings();
  	}
- 
+
 	function callBackLoadProducts(productList) {
-			
+
 			var productQty = productList.productCount + ' <s:message code="label.search.items.found" text="item(s) found" />';
 			$('#products-qty').html(productQty);
 			$('#productsContainer').hideLoading();
@@ -116,8 +116,8 @@ response.setDateHeader ("Expires", -1);
 				<c:if test="${productGroup!=null}">
 						<div class="col-md-12">
 							<div class="product-list">
-							
-							
+
+
 							<!-- just copy that block for havimg products displayed -->
 							<!-- products are loaded by ajax -->
         					<div id="productsContainer" class="list-unstyled"></div>

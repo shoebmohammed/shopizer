@@ -9,7 +9,7 @@ import com.salesmanager.shop.utils.FieldMatch;
 
 @FieldMatch.List({
     @FieldMatch(first="password",second="checkPassword",message="password.notequal")
-    
+
 })
 public class SecuredCustomer extends PersistableCustomer implements Serializable {
 
@@ -17,15 +17,19 @@ public class SecuredCustomer extends PersistableCustomer implements Serializable
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
 
 
-	@Size(min=6, message="{registration.password.not.empty}")
+  /*
+   * @alex
+   * change message to make it more meaningful
+   * registration.password.not.empty -> password should not be empty and minimum 6 characters
+   */
+	@Size(min=6, message="{password should not be empty and minimum 6 characters}")
 	private String password;
-	
-	@Size(min=6, message="{registration.password.not.empty}")
+
+	@Size(min=6, message="{password should not be empty and minimum 6 characters}")
 	private String checkPassword;
-	
+
 
 
 	public String getPassword() {
@@ -45,7 +49,7 @@ public class SecuredCustomer extends PersistableCustomer implements Serializable
     {
         this.checkPassword = checkPassword;
     }
-	
-	
+
+
 
 }

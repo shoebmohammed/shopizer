@@ -12,7 +12,7 @@ import com.salesmanager.shop.model.catalog.product.attribute.ReadableProductOpti
 public class ReadableProduct extends ProductEntity implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private ProductDescription description;
@@ -26,11 +26,11 @@ public class ReadableProduct extends ProductEntity implements Serializable {
 	private List<ReadableProductOption> options;
 	private List<ReadableCategory> categories;
 	private boolean canBePurchased = false;
-	
+
 	//RENTAL
 	private RentalOwner owner;
-	
-		
+
+
 	public ProductDescription getDescription() {
 		return description;
 	}

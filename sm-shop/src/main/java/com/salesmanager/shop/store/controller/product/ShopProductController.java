@@ -48,50 +48,69 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-
-
+// import com.salesmanager.core.business.services.catalog.product.ProductServiceImpl;
+import com.salesmanager.shop.model.catalog.product.ReadableImage;
 /**
  * Populates the product details page
  * @author Carl Samson
  *
  */
+ // @author alex Controller -> RestController
 @Controller
 @RequestMapping("/shop/product")
 public class ShopProductController {
-	
+
 	@Inject
 	private ProductService productService;
-	
+
 	@Inject
 	private ProductAttributeService productAttributeService;
-	
+
 	@Inject
 	private ProductRelationshipService productRelationshipService;
-	
+
 	@Inject
 	private PricingService pricingService;
-	
+
 	@Inject
 	private ProductReviewService productReviewService;
-	
+
 	@Inject
 	private LabelUtils messages;
-	
+
 	@Inject
 	private CacheUtils cache;
-	
+
 	@Inject
 	private CategoryService categoryService;
-	
+
 	@Inject
 	private BreadcrumbsUtils breadcrumbsUtils;
-	
+
 	@Inject
 	@Qualifier("img")
 	private ImageFilePath imageUtils;
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ShopProductController.class);
-	
+
+	/**
+	 * @author alex
+	 * alex-api
+	 */
+	// route to return most-viewed
+	@RequestMapping("/most-viewed")
+	@ResponseBody
+	public List getMostViewed() {
+		return productService.getMostViewed();
+	}
+
+	// record history in alex_history table
+	@RequestMapping(value = "/alex-history", method = RequestMethod.POST)
+	public void setHistory(@RequestBody String pid) {
+		int p_id = Integer.parseInt(pid);
+		productService.setHistory(p_id);
+	}
+	// alex<<<
 
 	/**
 	 * Display product details with reference to caller page
@@ -108,7 +127,7 @@ public class ShopProductController {
 	public String displayProductWithReference(@PathVariable final String friendlyUrl, @PathVariable final String ref, Model model, HttpServletRequest request, HttpServletResponse response, Locale locale) throws Exception {
 		return display(ref, friendlyUrl, model, request, response, locale);
 	}
-	
+
 
 	/**
 	 * Display product details no reference
@@ -128,21 +147,21 @@ public class ShopProductController {
 
 	@SuppressWarnings("unchecked")
 	public String display(final String reference, final String friendlyUrl, Model model, HttpServletRequest request, HttpServletResponse response, Locale locale) throws Exception {
-		
+
 
 		MerchantStore store = (MerchantStore)request.getAttribute(Constants.MERCHANT_STORE);
 		Language language = (Language)request.getAttribute("LANGUAGE");
-		
+
 		Product product = productService.getBySeUrl(store, friendlyUrl, locale);
-				
+
 		if(product==null) {
 			return PageBuilderUtils.build404(store);
 		}
-		
+
 		ReadableProductPopulator populator = new ReadableProductPopulator();
 		populator.setPricingService(pricingService);
 		populator.setimageUtils(imageUtils);
-		
+
 		ReadableProduct productProxy = populator.populate(product, new ReadableProduct(), store, language);
 
 		//meta information
@@ -151,15 +170,15 @@ public class ShopProductController {
 		pageInformation.setPageKeywords(productProxy.getDescription().getKeyWords());
 		pageInformation.setPageTitle(productProxy.getDescription().getTitle());
 		pageInformation.setPageUrl(productProxy.getDescription().getFriendlyUrl());
-		
+
 		request.setAttribute(Constants.REQUEST_PAGE_INFORMATION, pageInformation);
-		
+
 		Breadcrumb breadCrumb = breadcrumbsUtils.buildProductBreadcrumb(reference, productProxy, store, language, request.getContextPath());
 		request.getSession().setAttribute(Constants.BREADCRUMB, breadCrumb);
 		request.setAttribute(Constants.BREADCRUMB, breadCrumb);
-		
 
-		
+
+
 		StringBuilder relatedItemsCacheKey = new StringBuilder();
 		relatedItemsCacheKey
 		.append(store.getId())
@@ -167,15 +186,15 @@ public class ShopProductController {
 		.append(Constants.RELATEDITEMS_CACHE_KEY)
 		.append("-")
 		.append(language.getCode());
-		
+
 		StringBuilder relatedItemsMissed = new StringBuilder();
 		relatedItemsMissed
 		.append(relatedItemsCacheKey.toString())
 		.append(Constants.MISSED_CACHE_KEY);
-		
+
 		Map<Long,List<ReadableProduct>> relatedItemsMap = null;
 		List<ReadableProduct> relatedItems = null;
-		
+
 		if(store.isUseCache()) {
 
 			//get from the cache
@@ -200,23 +219,23 @@ public class ShopProductController {
 		} else {
 			relatedItems = relatedItems(store, product, language);
 		}
-		
-		model.addAttribute("relatedProducts",relatedItems);	
-		Set<ProductAttribute> attributes = product.getAttributes();
-		
 
-		
+		model.addAttribute("relatedProducts",relatedItems);
+		Set<ProductAttribute> attributes = product.getAttributes();
+
+
+
 		//split read only and options
 		Map<Long,Attribute> readOnlyAttributes = null;
 		Map<Long,Attribute> selectableOptions = null;
-		
+
 		if(!CollectionUtils.isEmpty(attributes)) {
-						
+
 			for(ProductAttribute attribute : attributes) {
 				Attribute attr = null;
 				AttributeValue attrValue = new AttributeValue();
 				ProductOptionValue optionValue = attribute.getProductOptionValue();
-				
+
 				if(attribute.getAttributeDisplayOnly()==true) {//read only attribute
 					if(readOnlyAttributes==null) {
 						readOnlyAttributes = new TreeMap<Long,Attribute>();
@@ -241,9 +260,9 @@ public class ShopProductController {
 						selectableOptions.put(attribute.getProductOption().getId(), attr);
 					}
 				}
-				
-				
-				
+
+
+
 				attrValue.setDefaultAttribute(attribute.getAttributeDefault());
 				attrValue.setId(attribute.getId());//id of the attribute
 				attrValue.setLanguage(language.getCode());
@@ -251,7 +270,7 @@ public class ShopProductController {
 					String formatedPrice = pricingService.getDisplayAmount(attribute.getProductAttributePrice(), store);
 					attrValue.setPrice(formatedPrice);
 				}
-				
+
 				if(!StringUtils.isBlank(attribute.getProductOptionValue().getProductOptionValueImage())) {
 					attrValue.setImage(imageUtils.buildProductPropertyImageUtils(store, attribute.getProductOptionValue().getProductOptionValueImage()));
 				}
@@ -259,7 +278,7 @@ public class ShopProductController {
 				if(attribute.getProductOptionSortOrder()!=null) {
 					attrValue.setSortOrder(attribute.getProductOptionSortOrder().intValue());
 				}
-				
+
 				List<ProductOptionValueDescription> descriptions = optionValue.getDescriptionsSettoList();
 				ProductOptionValueDescription description = null;
 				if(descriptions!=null && descriptions.size()>0) {
@@ -282,10 +301,10 @@ public class ShopProductController {
 				}
 				attrs.add(attrValue);
 			}
-			
+
 		}
-		
-		
+
+
 
 		List<ProductReview> reviews = productReviewService.getByProduct(product, language);
 		if(!CollectionUtils.isEmpty(reviews)) {
@@ -298,12 +317,12 @@ public class ShopProductController {
 			}
 			model.addAttribute("reviews", revs);
 		}
-		
+
 		List<Attribute> attributesList = null;
 		if(readOnlyAttributes!=null) {
 			attributesList = new ArrayList<Attribute>(readOnlyAttributes.values());
 		}
-		
+
 		List<Attribute> optionsList = null;
 		if(selectableOptions!=null) {
 			optionsList = new ArrayList<Attribute>(selectableOptions.values());
@@ -314,56 +333,56 @@ public class ShopProductController {
 					         if(o1.getSortOrder()== o2.getSortOrder())
 					             return 0;
 					         return o1.getSortOrder() < o2.getSortOrder() ? -1 : 1;
-				    	
+
 				     }
 				});
 			}
 		}
-		
+
 		model.addAttribute("attributes", attributesList);
 		model.addAttribute("options", optionsList);
-			
+
 		model.addAttribute("product", productProxy);
 
-		
+
 		/** template **/
 		StringBuilder template = new StringBuilder().append(ControllerConstants.Tiles.Product.product).append(".").append(store.getStoreTemplate());
 
 		return template.toString();
 	}
-	
+
     @RequestMapping(value={"/{productId}/calculatePrice.json"}, method=RequestMethod.POST)
 	public @ResponseBody
 	ReadableProductPrice calculatePrice(@RequestParam(value="attributeIds[]") Long[] attributeIds, @PathVariable final Long productId, final HttpServletRequest request, final HttpServletResponse response, final Locale locale) throws Exception {
 
-    	
+
     	MerchantStore store = (MerchantStore)request.getAttribute(Constants.MERCHANT_STORE);
 		Language language = (Language)request.getAttribute("LANGUAGE");
-		
-		
+
+
 		Product product = productService.getById(productId);
-		
+
 		@SuppressWarnings("unchecked")
 		List<Long> ids = new ArrayList<Long>(Arrays.asList(attributeIds));
-		List<ProductAttribute> attributes = productAttributeService.getByAttributeIds(store, product, ids);      
-		
+		List<ProductAttribute> attributes = productAttributeService.getByAttributeIds(store, product, ids);
+
 		for(ProductAttribute attribute : attributes) {
 			if(attribute.getProduct().getId().longValue()!=productId.longValue()) {
 				return null;
 			}
 		}
-		
+
 		FinalPrice price = pricingService.calculateProductPrice(product, attributes);
     	ReadableProductPrice readablePrice = new ReadableProductPrice();
     	ReadableFinalPricePopulator populator = new ReadableFinalPricePopulator();
     	populator.setPricingService(pricingService);
     	populator.populate(price, readablePrice, store, language);
     	return readablePrice;
-    	
+
     }
-	
+
 	private Attribute createAttribute(ProductAttribute productAttribute, Language language) {
-		
+
 		Attribute attribute = new Attribute();
 		attribute.setId(productAttribute.getProductOption().getId());//attribute of the option
 		attribute.setType(productAttribute.getProductOption().getProductOptionType());
@@ -380,28 +399,28 @@ public class ShopProductController {
 				}
 			}
 		}
-		
+
 		if(description==null) {
 			return null;
 		}
-		
+
 		attribute.setType(productAttribute.getProductOption().getProductOptionType());
 		attribute.setLanguage(language.getCode());
 		attribute.setName(description.getName());
 		attribute.setCode(productAttribute.getProductOption().getCode());
 
-		
+
 		return attribute;
-		
+
 	}
-	
+
 	private List<ReadableProduct> relatedItems(MerchantStore store, Product product, Language language) throws Exception {
-		
-		
+
+
 		ReadableProductPopulator populator = new ReadableProductPopulator();
 		populator.setPricingService(pricingService);
 		populator.setimageUtils(imageUtils);
-		
+
 		List<ProductRelationship> relatedItems = productRelationshipService.getByType(store, product, ProductRelationshipType.RELATED_ITEM);
 		if(relatedItems!=null && relatedItems.size()>0) {
 			List<ReadableProduct> items = new ArrayList<ReadableProduct>();
@@ -412,10 +431,10 @@ public class ShopProductController {
 			}
 			return items;
 		}
-		
+
 		return null;
 	}
-	
+
 
 
 }

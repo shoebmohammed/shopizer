@@ -5,9 +5,9 @@ import java.io.Serializable;
 import com.salesmanager.shop.model.ShopEntity;
 
 public class AttributeValue extends ShopEntity implements Serializable {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private String name = null;

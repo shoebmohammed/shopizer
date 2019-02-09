@@ -17,7 +17,7 @@ import com.salesmanager.core.model.reference.language.Language;
 @Service("productAttributeService")
 public class ProductAttributeServiceImpl extends
 		SalesManagerEntityServiceImpl<Long, ProductAttribute> implements ProductAttributeService {
-	
+
 	private ProductAttributeRepository productAttributeRepository;
 
 	@Inject
@@ -25,39 +25,39 @@ public class ProductAttributeServiceImpl extends
 		super(productAttributeRepository);
 		this.productAttributeRepository = productAttributeRepository;
 	}
-	
+
 	@Override
 	public ProductAttribute getById(Long id) {
-		
+
 		return productAttributeRepository.findOne(id);
-		
+
 	}
-	
-	
+
+
 	@Override
 	public List<ProductAttribute> getByOptionId(MerchantStore store,
 			Long id) throws ServiceException {
-		
+
 		return productAttributeRepository.findByOptionId(store.getId(), id);
-		
+
 	}
-	
+
 	@Override
 	public List<ProductAttribute> getByAttributeIds(MerchantStore store,
 			Product product, List<Long> ids) throws ServiceException {
-		
+
 		return productAttributeRepository.findByAttributeIds(store.getId(), product.getId(), ids);
-		
+
 	}
-	
+
 	@Override
 	public List<ProductAttribute> getByOptionValueId(MerchantStore store,
 			Long id) throws ServiceException {
-		
+
 		return productAttributeRepository.findByOptionValueId(store.getId(), id);
-		
+
 	}
-	
+
 	/**
 	 * Returns all product attributes
 	 */
@@ -65,7 +65,7 @@ public class ProductAttributeServiceImpl extends
 	public List<ProductAttribute> getByProductId(MerchantStore store,
 			Product product, Language language) throws ServiceException {
 		return productAttributeRepository.findByProductId(store.getId(), product.getId(), language.getId());
-		
+
 	}
 
 
@@ -77,16 +77,16 @@ public class ProductAttributeServiceImpl extends
 		//} else {
 			productAttributeRepository.save(productAttribute);
 		//}
-		
+
 	}
-	
+
 	@Override
 	public void delete(ProductAttribute attribute) throws ServiceException {
-		
+
 		//override method, this allows the error that we try to remove a detached instance
 		attribute = this.getById(attribute.getId());
 		super.delete(attribute);
-		
+
 	}
 
 }

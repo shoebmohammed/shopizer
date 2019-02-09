@@ -12,21 +12,21 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 
 
 public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
-	
+
 	@PersistenceContext
     private EntityManager em;
-	
+
 	@Override
 	public List<Object[]> countProductsByCategories(MerchantStore store, List<Long> categoryIds) {
 
-		
+
 		StringBuilder qs = new StringBuilder();
 		qs.append("select categories, count(product.id) from Product product ");
 		qs.append("inner join product.categories categories ");
 		qs.append("where categories.id in (:cid) ");
 		qs.append("and product.available=true and product.dateAvailable<=:dt ");
 		qs.append("group by categories.id");
-		
+
     	String hql = qs.toString();
 		Query q = this.em.createQuery(hql);
 
@@ -34,23 +34,23 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
     	q.setParameter("dt", new Date());
 
 
-    	
+
     	@SuppressWarnings("unchecked")
 		List<Object[]> counts =  q.getResultList();
 
-    	
+
     	return counts;
-		
-		
+
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Category> listByStoreAndParent(MerchantStore store, Category category) {
-		
+
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("select c from Category c join fetch c.merchantStore cm ");
-		
+
 		if (store == null) {
 			if (category == null) {
 				//query.from(qCategory)
@@ -78,9 +78,9 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
 					//.orderBy(qCategory.sortOrder.asc(),qCategory.id.desc());
 			}
 		}
-		
+
 		queryBuilder.append(" order by c.sortOrder asc");
-		
+
     	String hql = queryBuilder.toString();
 		Query q = this.em.createQuery(hql);
 
@@ -88,8 +88,8 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
     	if (store != null) {
     		q.setParameter("mid", store.getId());
     	}
-    	
-		
+
+
 		return q.getResultList();
 	}
 

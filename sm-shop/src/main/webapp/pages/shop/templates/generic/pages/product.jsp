@@ -281,18 +281,47 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- alex>>> -->
+		<div id="most-viewed" class="row">
+			<div class="col-xs-3">
+				<a href="#" class="thumbnail">
+      		<img src="../../../../../resources/img/index.jpeg" alt="...">
+    		</a>
+				<div>Some bullshit written by Alex</div>
+			</div>
+			<div class="col-xs-3">
+				<a href="#" class="thumbnail">
+      		<img src="../../../../../resources/img/index.jpeg" alt="...">
+    		</a>
+				<div>Some more bullshit written by Alex</div>
+			</div>
+			<div class="col-xs-3">
+				<a href="#" class="thumbnail">
+      		<img src="../../../../../resources/img/index.jpeg" alt="...">
+    		</a>
+				<div>Another bullshit written by Alex</div>
+			</div>
+			<div class="col-xs-3">
+				<a href="#" class="thumbnail">
+      		<img src="../../../../../resources/img/index.jpeg" alt="...">
+    		</a>
+				<div>And more bullshit written by Alex</div>
+			</div>
+		</div>
+		<!-- alex<<< -->
 	</div>
 </div>
 </div>
 </div>
 
 <script>
-		
+
 		$(function () {
-			
+
 			$('.popup-img').magnificPopup({type:'image'});
-		
-		
+
+
 		    $('.thumbImg').click(function(){
 		    	var igId = $(this).attr('imgId');
 		        var url = $(this).attr('rel');
@@ -301,10 +330,9 @@
 		        //re bind action
 		        $('.popup-img').magnificPopup({type:'image'});
 		    })
-		    
+
 		})
-		
 
-			
+
+
 		</script>
-

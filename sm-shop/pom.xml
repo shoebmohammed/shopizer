@@ -21,7 +21,7 @@
 		<main.basedir>${basedir}/../..</main.basedir>
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
 		<jwt.version>0.8.0</jwt.version>
-		<!-- Need to use the latest milestone in order to logon with latest FB 
+		<!-- Need to use the latest milestone in order to logon with latest FB
 			app version -->
 		<spring-social-facebook.version>3.0.0.M3</spring-social-facebook.version>
 		<guava.version>19.0</guava.version>
@@ -92,6 +92,15 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
+
+		<!-- alex>>> -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<scope>runtime</scope>
+		</dependency> -->
+		<!-- alex<<< -->
 
 
 		<!-- enables spring social -->
@@ -180,6 +189,30 @@
 			<version>${jwt.version}</version>
 		</dependency>
 
+		<!-- this is required if you building with java 11 (openjdk-11) -->
+		<!-- https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j -->
+		<dependency>
+	    <groupId>javax.xml.bind</groupId>
+	    <artifactId>jaxb-api</artifactId>
+	    <version>2.2.11</version>
+		</dependency>
+		<dependency>
+	    <groupId>com.sun.xml.bind</groupId>
+	    <artifactId>jaxb-core</artifactId>
+	    <version>2.2.11</version>
+		</dependency>
+		<dependency>
+	    <groupId>com.sun.xml.bind</groupId>
+	    <artifactId>jaxb-impl</artifactId>
+	    <version>2.2.11</version>
+		</dependency>
+		<dependency>
+	    <groupId>javax.activation</groupId>
+	    <artifactId>activation</artifactId>
+	    <version>1.1.1</version>
+		</dependency>
+		<!-- this is required if you building with java 11 (openjdk-11) -->
+
 	</dependencies>
 
 	<build>
@@ -211,7 +244,5 @@
 		</plugins>
 		<finalName>ROOT</finalName>
 	</build>
-
-
 
 </project>

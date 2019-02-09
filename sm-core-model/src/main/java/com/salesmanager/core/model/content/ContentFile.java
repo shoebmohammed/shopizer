@@ -1,8 +1,8 @@
 package com.salesmanager.core.model.content;
 
 public abstract class ContentFile {
-	
-	
+
+
 	private String fileName;
 	private String mimeType;
 	public void setMimeType(String mimeType) {

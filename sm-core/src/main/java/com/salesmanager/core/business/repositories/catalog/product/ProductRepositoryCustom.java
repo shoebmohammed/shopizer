@@ -12,14 +12,16 @@ import com.salesmanager.core.model.reference.language.Language;
 import com.salesmanager.core.model.tax.taxclass.TaxClass;
 
 public interface ProductRepositoryCustom {
-	
-	
-	
-	
+
+
+	// alex>>>
+	void setHistory(int p_id);
+	List getMostViewed();
+	// alex<<<
 
 		ProductList listByStore(MerchantStore store, Language language,
 			ProductCriteria criteria);
-		
+
 		 Product getByFriendlyUrl(MerchantStore store,String seUrl, Locale locale);
 
 		List<Product> getProductsListByCategories(@SuppressWarnings("rawtypes") Set categoryIds);

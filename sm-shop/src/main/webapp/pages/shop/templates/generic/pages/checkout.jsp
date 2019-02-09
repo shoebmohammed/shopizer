@@ -10,8 +10,8 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %> 
- 
+<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %>
+
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
@@ -27,16 +27,16 @@ response.setDateHeader ("Expires", -1);
 <!-- generic checkout script -->
 <script src="<c:url value="/resources/js/shop-checkout.js" />"></script>
 
-<!-- 
+<!--
 Templates definition
  -->
- 
+
  <!-- subtotals template -->
 <script type="text/html" id="subTotalsTemplate">
 		{{#subTotals}}
-			<tr id="cart-subtotal-{{code}}" class="cart-subtotal subt"> 									
-				<td class="order-total-label">{{#discounted}}<s:message code="label.generic.rebate" text="Rebate" />&nbsp;-&nbsp;{{text}}{{/discounted}}{{^discounted}}{{title}}{{/discounted}}</td> 
-				<td class="order-total-label"><strong>{{#discounted}}<font color="red">-{{total}}</font>{{/discounted}}{{^discounted}}{{total}}{{/discounted}}</strong></td> 
+			<tr id="cart-subtotal-{{code}}" class="cart-subtotal subt">
+				<td class="order-total-label">{{#discounted}}<s:message code="label.generic.rebate" text="Rebate" />&nbsp;-&nbsp;{{text}}{{/discounted}}{{^discounted}}{{title}}{{/discounted}}</td>
+				<td class="order-total-label"><strong>{{#discounted}}<font color="red">-{{total}}</font>{{/discounted}}{{^discounted}}{{total}}{{/discounted}}</strong></td>
 			</tr>
 		{{/subTotals}}
 </script>
@@ -47,17 +47,17 @@ Templates definition
 		<td><strong><span class="amount grand-total">{{grandTotal}}</td>
 </script>
 
-											
+
 <!-- shipping template -->
 <script type="text/html" id="shippingTemplate">
 			<table id="shippingOptions">
 			{{#shippingOptions}}
 				<tr>
-				<td style="border: none !important;">	
+				<td style="border: none !important;">
 				<input type="radio" name="selectedShippingOption.optionId" code="{{shippingModuleCode}}" class="shippingOption" id="{{optionId}}" value="{{optionId}}" {{#checked}} checked="checked"{{/checked}}>
 				</td>
-				<td style="border: none !important;">	
-				<label> 
+				<td style="border: none !important;">
+				<label>
 					{{description}} - {{optionPriceText}}
 				</label>
 				</td>
@@ -70,10 +70,10 @@ Templates definition
 				</tr>
 				{{/note}}
 			{{/shippingOptions}}
-			</table>						
+			</table>
 </script>
-											
- 
+
+
 <script>
 
 <!-- definitions -->
@@ -90,16 +90,16 @@ var formErrorMessageId = '#formErrorMessage';
 var useDistanceWindow = <c:out value="${shippingMetaData.useDistanceModule}"/>;
 
 $(document).ready(function() {
-	
-	
+
+
 	//logic for initialyzing the form, needs to be maintained
-	
+
 	//form displaying shipping address
 	$("#confirmShippingAddress").hide();
 
-    formValid = false;	
+    formValid = false;
 
-	<!-- 
+	<!--
 		//can use masked input for phone (USA - CANADA)
 	-->
 
@@ -108,7 +108,7 @@ $(document).ready(function() {
 	if(!paymentModule) {
 		paymentModule = '${order.paymentModule}';
 	}
-	
+
 	formValid = isFormValid(); //first validation
 
 	bindActions();
@@ -126,25 +126,25 @@ $(document).ready(function() {
 
 	<!-- customer state is text -->
 	<c:if test="${order.customer.billing.stateProvince!=null && order.customer.billing.stateProvince!=null !=''}">
-		$('#billingStateList').hide();          
-		$('#billingStateProvince').show(); 
+		$('#billingStateList').hide();
+		$('#billingStateProvince').show();
 		$('#billingStateProvince').val('<c:out value="${order.customer.billing.stateProvince}"/>');
 	</c:if>
 	<!-- customer state is a know state -->
 	<c:if test="${order.customer.billing.stateProvince==null || order.customer.billing.stateProvince==''}">
-		$('#billingStateList').show();           
+		$('#billingStateList').show();
 		$('#billingStateProvince').hide();
-		getZones('#billingStateList','#billingStateProvince','<c:out value="${order.customer.billing.country}" />','<c:out value="${order.customer.billing.zone}" />', '${requestScope.LANGUAGE.code}', validateForm); 
+		getZones('#billingStateList','#billingStateProvince','<c:out value="${order.customer.billing.country}" />','<c:out value="${order.customer.billing.zone}" />', '${requestScope.LANGUAGE.code}', validateForm);
 	</c:if>
-	
-	<c:if test="${order.customer.delivery.stateProvince!=null && order.customer.delivery.stateProvince!=''}">  
-		$('#deliveryStateList').hide();          
-		$('#deliveryStateProvince').show(); 
+
+	<c:if test="${order.customer.delivery.stateProvince!=null && order.customer.delivery.stateProvince!=''}">
+		$('#deliveryStateList').hide();
+		$('#deliveryStateProvince').show();
 		$('#deliveryStateProvince').val('<c:out value="${order.customer.delivery.stateProvince}"/>');
 	</c:if>
-	
-	<c:if test="${order.customer.delivery.stateProvince==null || order.customer.delivery.stateProvince==''}">  
-		$('#deliveryStateList').show();          
+
+	<c:if test="${order.customer.delivery.stateProvince==null || order.customer.delivery.stateProvince==''}">
+		$('#deliveryStateList').show();
 		$('#deliveryStateProvince').hide();
 		//populate zones
 		getZones('#deliveryStateList','#deliveryStateProvince','<c:out value="${order.customer.delivery.country}" />','<c:out value="${order.customer.billing.zone}" />', '${requestScope.LANGUAGE.code}', validateForm);
@@ -156,7 +156,7 @@ $(document).ready(function() {
 		getZones('#billingStateList','#billingStateProvince',$(this).val(),'<c:out value="${order.customer.billing.zone}" />', '${requestScope.LANGUAGE.code}', countryListChanged);
 		setCountrySettings('billing',$(this).val());
     })
-    
+
     //when the list of country changes in the shipping section
     $(".shipping-country-list").change(function() {
 		getZones('#deliveryStateList','#deliveryStateProvince',$(this).val(),'<c:out value="${order.customer.delivery.zone}" />', '${requestScope.LANGUAGE.code}', countryListChanged);
@@ -176,18 +176,18 @@ $(document).ready(function() {
 	address.latitude='<c:out value="${shippingQuote.deliveryAddress.latitude}"/>';
 	address.longitude='<c:out value="${shippingQuote.deliveryAddress.longitude}"/>';
 	</c:if>
-	
+
 	//selected quote is not pickup
 	var shippingMethod = null;
 	<c:if test="${shippingQuote.shippingModuleCode!=null}">
 	shippingMethod='<c:out value="${shippingQuote.shippingModuleCode}"/>';
 	</c:if>
-	
 
-	
+
+
 	//console.log(address);
 	displayConfirmShipping(address,shippingMethod,useDistanceWindow);
-	
+
 
 });
 
@@ -198,7 +198,7 @@ function countryListChanged() {
 
 
 function validateForm() {
-	isFormValid(shippingQuotesUrl);	
+	isFormValid(shippingQuotesUrl);
 }
 
 function isFormValid() {
@@ -220,7 +220,7 @@ function isFormValid() {
 				valid = false;
 			}
 		}
-		if($(this).hasClass('email')) {	
+		if($(this).hasClass('email')) {
 			var emailValid = validateEmail($(this).val());
 			//console.log('Email is valid ? ' + emailValid);
 			if(!emailValid) {
@@ -231,7 +231,7 @@ function isFormValid() {
 			}
 		}
 	});
-	
+
 
 	//console.log('Form is valid ? ' + valid);
 	if(valid==false) {//disable submit button
@@ -252,7 +252,7 @@ function isFormValid() {
 		$('#submitOrder').prop('disabled', false);
 	}
 
-	
+
 	return valid;
 }
 
@@ -267,7 +267,7 @@ function isCheckoutFieldValid(field) {
 	if(!field.is(':visible')) {
 		validateField = false; //ignore invisible fields
 	}
-	
+
 
 	//shipping information
 	<c:if test="${shippingQuote!=null}">
@@ -299,13 +299,13 @@ function isCheckoutFieldValid(field) {
 			}
 		}
 	</c:if>
-	
 
-	
+
+
 	if(!validateField) {
 		return true;
 	}
-	
+
 	if(field.attr('type')=='checkbox') {
 		if(field.is(":checked")) {
 			return true;
@@ -313,7 +313,7 @@ function isCheckoutFieldValid(field) {
 			return false;
 		}
 	}
-	
+
 	if(!emptyString(value)) {
 		field.css('background-color', '#FFF');
 		return true;
@@ -324,93 +324,93 @@ function isCheckoutFieldValid(field) {
 }
 
 function showErrorMessage(message) {
-	
-	
+
+
 	showResponseErrorMessage(message);
 	$('#submitOrder').addClass('btn-disabled');
 	$('#submitOrder').prop('disabled', true);
-	
+
 	$(formErrorMessageId).addClass('alert-error alert-danger');
 	$(formErrorMessageId).removeClass('alert-success');
 	$(formErrorMessageId).html('<!--<img src="<c:url value="/resources/img/icon_error.png"/>" width="40"/>&nbsp;--><strong><font color="red">' + message + '</font></strong>');
 	$(formErrorMessageId).show();
-	
+
 }
 
 function showResponseErrorMessage(message) {
-	
+
 	$('#checkoutError').addClass('alert');
 	$('#checkoutError').addClass('alert-error alert-danger');
 	$('#checkoutError').html(message);
-	
+
 }
 
 function resetErrorMessage() {
-	
+
 	$('#checkoutError').html('');
 	$('#checkoutError').removeClass('alert');
 	$('#checkoutError').removeClass('alert-error alert-danger');
 	$('.error').html('');
-	
+
 }
 
 
 
 //different form actions
 function bindActions() {
-	
+
     $("#clickAgreement").click(function(){
     	$("#customer-agreement-area").slideToggle("slow");
 	});
-	
+
 	bindCalculateShipping();
-	
+
 	$("input[type='text']").on("change keyup paste", function(){
 		isFormValid();
 	});
-	
+
 	$("input[type='checkbox']").on("change click", function(){
 		isFormValid();
 	});
-	
+
    	$('input[name=paymentMethodType]', checkoutFormId).click(function() {
     	isFormValid();//change payment method
     });
-    
+
     $("#billingStateList").change(function() {
-    	shippingQuotes(shippingQuotesUrl,useDistanceWindow);	
+    	shippingQuotes(shippingQuotesUrl,useDistanceWindow);
     })
-    
+
     $("#shippingStateList").change(function() {
-    	shippingQuotes(shippingQuotesUrl,useDistanceWindow);		
+    	shippingQuotes(shippingQuotesUrl,useDistanceWindow);
     })
-    
+
     $("input[id=billingPostalCode]").on('blur input', function() {
 		if (!$('#shipToDeliveryAddress').is(':checked')) {
 			shippingQuotes(shippingQuotesUrl,useDistanceWindow);
 		}
      });
-	
+
      $("input[id=deliveryPostalCode]").on('blur input', function() {
 		if ($('#shipToDeliveryAddress').is(':checked')) {
 			shippingQuotes(shippingQuotesUrl,useDistanceWindow);
 		}
      });
-     
-     $(".paymentMethodSelected").click(function() { 
+
+     $(".paymentMethodSelected").click(function() {
     	 var paymentClicked = $(this).attr("name");
     	 //console.log('Selected payment' + paymentClicked);
     	 setPaymentModule(paymentClicked);
     	 isFormValid();
      });
-    
+
     //shipping / billing decision checkbox
     $("#shipToDeliveryAddress").click(function() {
     	shippingQuotes(shippingQuotesUrl,useDistanceWindow);
     	isFormValid();
     	$('#ship-box-info').slideToggle(1000);
     });
-    
+
     //final order submission button
 	$("#submitOrder").click(function(e) {
 		e.preventDefault();//do not submit form
@@ -419,7 +419,7 @@ function bindActions() {
 		setCountrySettings('billing',$('.billing-country-list').val());
 		setCountrySettings('delivery',$('.shipping-country-list').val());
 		//$('#submitOrder').disable();
-		
+
 		//confirm shipping
 		if(formValid) {
 				//validateConfirmShipping(response);
@@ -427,7 +427,7 @@ function bindActions() {
 					//add confirm address section to shipping
 				}
 		}
-		
+
 		showSMLoading('#pageContainer');
 		var paymentSelection = $('#paymentModule').val();
 		log('Selection-> ' + paymentSelection);
@@ -464,7 +464,7 @@ function bindActions() {
 			submitForm();
 		} else {
 			//submit form
-			submitForm();	
+			submitForm();
 		}
     });
 }
@@ -491,13 +491,13 @@ function initPayment(paymentSelection) {
 				var status = resp.status;
 				//console.log(status);
 				if(status==0 || status ==9999) {
-					
+
 					var data = resp.url;
 					//console.log(resp.url);
 					location.href=resp.url;
 
 				} else if(status==-2) {//validation issues
-					
+
 					//console.log(resp.validations);
 				    var globalMessage = '';
 					for(var i = 0; i< resp.validations.length; i++) {
@@ -510,16 +510,16 @@ function initPayment(paymentSelection) {
 							f.html(message);
 						}
 						globalMessage = globalMessage + message + '<br/>';
-						
+
 					}
-					
+
 					showResponseErrorMessage(globalMessage);
-					
-					
+
+
 				} else {
 					//console.log('Wrong status ' + status);
 					showResponseErrorMessage('<s:message code="error.code.99" text="An error message occured while trying to process the payment (99)"/>');
-					
+
 				}
 		  },
 		    error: function(xhr, textStatus, errorThrown) {
@@ -529,7 +529,7 @@ function initPayment(paymentSelection) {
 		  }
 
 	});
-	
+
 }
 
 
@@ -558,22 +558,22 @@ function initPayment(paymentSelection) {
 							<!-- ACCORDION START -->
 							<sec:authorize access="!hasRole('AUTH_CUSTOMER') and !fullyAuthenticated">
 								<p class="muted common-row"><a href="<c:url value="/shop/customer/customLogon.html"/>"><s:message code="label.checkout.logon" text="Logon or signup to simplify the online purchase process!"/></a></p>
-							</sec:authorize>					
+							</sec:authorize>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
 
-		
-		<!-- coupon-area end -->		
+
+
+		<!-- coupon-area end -->
 		<!-- checkout-area start -->
 		<div class="checkout-area pb-50">
 			<div class="container">
 				<div class="row">
-				
-				
+
+
 					<!-- If error messages -->
 					<div id="checkoutError"  class="<c:if test="${errorMessages!=null}">alert  alert-error alert-danger </c:if>">
 						<c:if test="${errorMessages!=null}">
@@ -581,17 +581,17 @@ function initPayment(paymentSelection) {
 						</c:if>
 					</div>
 					<!--alert-error-->
-				
+
    					<c:set var="commitUrl" value="${pageContext.request.contextPath}/shop/order/commitOrder.html"/>
    					<form:form id="checkoutForm" method="POST" enctype="multipart/form-data" commandName="order" action="${commitUrl}">
 						<input type="hidden" id="useDistanceWindow" name="useDistanceWindow" value="<c:out value="${shippingMetaData.useDistanceModule}"/>">
 						<div class="col-lg-6 col-md-6">
-							<div class="checkbox-form">						
+							<div class="checkbox-form">
 								<h3><s:message code="label.customer.billinginformation" text="Billing information"/></h3>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="checkout-form-list">
-											<label><s:message code="label.generic.firstname" text="First Name"/><span class="required">*</span></label>										
+											<label><s:message code="label.generic.firstname" text="First Name"/><span class="required">*</span></label>
 											<s:message code="NotEmpty.customer.firstName" text="First name is required" var="msgFirstName"/>
 											<form:input id="customer.firstName" cssClass="required" path="customer.billing.firstName" autofocus="autofocus" title="${msgFirstName}"/>
 											<form:errors path="customer.billing.firstName" cssClass="error" />
@@ -600,7 +600,7 @@ function initPayment(paymentSelection) {
 									</div>
 									<div class="col-md-6">
 										<div class="checkout-form-list">
-											<label><s:message code="label.generic.lastname" text="Last Name"/><span class="required">*</span></label>										
+											<label><s:message code="label.generic.lastname" text="Last Name"/><span class="required">*</span></label>
 										    <s:message code="NotEmpty.customer.lastName" text="Last name is required" var="msgLastName"/>
 										    <form:input id="customer.lastName" cssClass="required"  maxlength="32" path="customer.billing.lastName" title="${msgLastName}" />
 										    <form:errors path="customer.billing.lastName" cssClass="error" />
@@ -638,12 +638,12 @@ function initPayment(paymentSelection) {
 											<label><s:message code="label.generic.country" text="Country"/> <span class="required">*</span></label>
 										    <form:select cssClass="billing-country-list" path="customer.billing.country" style="background-color: rgb(255, 255, 255);">
 											  	<form:options items="${countries}" itemValue="isoCode" itemLabel="name"/>
-										     </form:select>										
+										     </form:select>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="checkout-form-list zone-select">
-											<label><s:message code="label.generic.stateprovince" text="State / Province"/> <span class="required">*</span></label>										
+											<label><s:message code="label.generic.stateprovince" text="State / Province"/> <span class="required">*</span></label>
 											<form:select cssClass="zone-list" id="billingStateList" path="customer.billing.zone"/>
 											<s:message code="NotEmpty.customer.billing.stateProvince" text="State / Province is required" var="msgStateProvince"/>
 											<form:input  class="required" id="billingStateProvince"  maxlength="100" name="billingStateProvince" path="customer.billing.stateProvince" title="${msgStateProvince}"/>
@@ -653,7 +653,7 @@ function initPayment(paymentSelection) {
 									</div>
 									<div class="col-md-6">
 										<div class="checkout-form-list">
-											<label><s:message code="label.generic.postalcode" text="Postal code"/> <span class="required">*</span></label>										
+											<label><s:message code="label.generic.postalcode" text="Postal code"/> <span class="required">*</span></label>
 											<s:message code="NotEmpty.customer.billing.postalCode" text="Postal code is required" var="msgPostalCode"/>
 											<form:input id="billingPostalCode" cssClass="required billing-postalCode" path="customer.billing.postalCode" title="${msgPostalCode}"/>
 											<form:errors path="customer.billing.postalCode" cssClass="error" />
@@ -662,8 +662,8 @@ function initPayment(paymentSelection) {
 									</div>
 									<div class="col-md-6">
 										<div class="checkout-form-list">
-											<label><s:message code="label.generic.email" text="Email address"/> <span class="required">*</span></label>										
-											<s:message code="NotEmpty.customer.emailAddress" text="Email address is required" var="msgEmail"/> 
+											<label><s:message code="label.generic.email" text="Email address"/> <span class="required">*</span></label>
+											<s:message code="NotEmpty.customer.emailAddress" text="Email address is required" var="msgEmail"/>
 										    <form:input id="customer.emailAddress" cssClass="required" path="customer.emailAddress" title="${msgEmail}"/>
 										    <form:errors path="customer.emailAddress" cssClass="error" />
 											<span id="error-customer.emailAddress" class="error"></span>
@@ -671,7 +671,7 @@ function initPayment(paymentSelection) {
 									</div>
 									<div class="col-md-6">
 										<div class="checkout-form-list">
-											<label><s:message code="label.generic.phone" text="Phone number"/>  <span class="required">*</span></label>										
+											<label><s:message code="label.generic.phone" text="Phone number"/>  <span class="required">*</span></label>
 											<s:message code="NotEmpty.customer.billing.phone" text="Phone number is required" var="msgPhone"/>
 										    <form:input id="customer.billing.phone" cssClass="required" path="customer.billing.phone" title="${msgPhone}"/>
 										    <form:errors path="customer.billing.phone" cssClass="error" />
@@ -680,7 +680,7 @@ function initPayment(paymentSelection) {
 									</div>
 									<sec:authorize access="!hasRole('AUTH_CUSTOMER') and !fullyAuthenticated">
 									<div class="col-md-12">
-										<div class="checkout-form-list create-acc">	
+										<div class="checkout-form-list create-acc">
 											<input id="cbox" type="checkbox" />
 											<label><s:message code="label.customer.createaccount" text="Create an account?"/></label>
 										</div>
@@ -688,9 +688,9 @@ function initPayment(paymentSelection) {
 											<p><s:message code="label.customer.createaccount.text" text="Create an account by entering the information below. If you are a returning customer please login using the link at the top of the page."/></p>
 											<s:message code="message.password.required" text="Password is required" var="msgPassword"/>
 											<label><s:message code="label.customer.accountpassword" text="Account password"/>  <span class="required">*</span></label>
-											<form:input id="customer.clearPassword" cssClass="required" path="customer.clearPassword" title="${msgPassword}"/>	
+											<form:input id="customer.clearPassword" cssClass="required" path="customer.clearPassword" title="${msgPassword}"/>
 										</div>
-									</div>								
+									</div>
 									</sec:authorize>
 								</div>
 								<c:if test="${shippingQuote!=null}">
@@ -704,14 +704,14 @@ function initPayment(paymentSelection) {
 									<div id="ship-box-info" class="row">
 										<div class="col-md-6">
 											<div class="checkout-form-list">
-												<label><s:message code="label.customer.shipping.firstname" text="Shipping first name"/> <span class="required">*</span></label>										
+												<label><s:message code="label.customer.shipping.firstname" text="Shipping first name"/> <span class="required">*</span></label>
 												<s:message code="NotEmpty.customer.shipping.firstName" text="Shipping first name should not be empty" var="msgShippingFirstName"/>
 									      		<form:input id="customer.delivery.name" cssClass="required" path="customer.delivery.firstName" title="${msgShippingFirstName}"/>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="checkout-form-list">
-												<label><s:message code="label.customer.shipping.lastname" text="Shipping last name"/> <span class="required">*</span></label>										
+												<label><s:message code="label.customer.shipping.lastname" text="Shipping last name"/> <span class="required">*</span></label>
 												<s:message code="NotEmpty.customer.shipping.lastName" text="Shipping last name should not be empty" var="msgShippingLastName"/>
 									      		<form:input id="customer.delivery.name" cssClass="required" path="customer.delivery.lastName" title="${msgShippingLastName}"/>
 											</div>
@@ -732,21 +732,21 @@ function initPayment(paymentSelection) {
 										<div class="col-md-12">
 											<div class="checkout-form-list">
 												<label><s:message code="label.customer.shipping.city" text="Shipping city"/> <span class="required">*</span></label>
-												<s:message code="NotEmpty.customer.shipping.city" text="Shipping city should not be empty" var="msgShippingCity"/> 
+												<s:message code="NotEmpty.customer.shipping.city" text="Shipping city should not be empty" var="msgShippingCity"/>
 											    <form:input id="customer.delivery.city" cssClass="required" path="customer.delivery.city" title="${msgShippingCity}"/>
 											</div>
 										</div>
 									<div class="col-md-12">
 										<div class="country-select">
-											<label><s:message code="label.customer.shipping.country" text="Shipping country"/> <span class="required">*</span></label>	
+											<label><s:message code="label.customer.shipping.country" text="Shipping country"/> <span class="required">*</span></label>
 										     <form:select cssClass="shipping-country-list" path="customer.delivery.country">
 											  	<form:options items="${countries}" itemValue="isoCode" itemLabel="name"/>
-										     </form:select>									
+										     </form:select>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="checkout-form-list zone-select">
-											<label><s:message code="label.customer.shipping.zone" text="Shipping state / province"/> <span class="required">*</span></label>										
+											<label><s:message code="label.customer.shipping.zone" text="Shipping state / province"/> <span class="required">*</span></label>
 											<form:select cssClass="zone-list" id="deliveryStateList" path="customer.delivery.zone"/>
 											<s:message code="NotEmpty.customer.shipping.stateProvince" text="Shipping State / Province is required" var="msgShippingState"/>
 											<form:input  class="required" id="deliveryStateProvince"  maxlength="100" name="shippingStateProvince" path="customer.delivery.stateProvince" title="${msgShippingState}"/>
@@ -754,24 +754,24 @@ function initPayment(paymentSelection) {
 									</div>
 									<div class="col-md-6">
 											<div class="checkout-form-list">
-												<label><s:message code="label.customer.shipping.postalcode" text="Shipping postal code"/> <span class="required">*</span></label>										
+												<label><s:message code="label.customer.shipping.postalcode" text="Shipping postal code"/> <span class="required">*</span></label>
 												<s:message code="NotEmpty.customer.shipping.postalCode" text="Shipping postal code should not be empty" var="msgShippingPostal"/>
 											    <form:input id="deliveryPostalCode" cssClass="required delivery-postalCode" path="customer.delivery.postalCode" title="${msgShippingPostal}"/>
 											</div>
 									</div>
-								
+
 								</div>
 									<div class="order-notes">
 										<div class="checkout-form-list">
 											<label><s:message code="label.order.notes" text="Order notes"/></label>
 											<s:message code="label.order.notes.eg" text="Notes for the order or delivery" var="msgNotes"/>
 											<form:textarea id="comments" cols="30" rows="10" path="comments" placeholder="${msgNotes}" />
-										</div>									
+										</div>
 									</div>
 								</div>
-								</c:if>													
+								</c:if>
 							</div>
-						</div>	
+						</div>
 						<div class="col-lg-6 col-md-6">
 							<div class="your-order">
 								<h3><s:message code="label.order.summary" text="Order summary" /></h3>
@@ -781,7 +781,7 @@ function initPayment(paymentSelection) {
 											<tr>
 												<th class="product-name"><s:message code="label.order.item" text="Item" /></th>
 												<th class="product-total"><s:message code="label.order.total" text="Total" /></th>
-											</tr>							
+											</tr>
 										</thead>
 										<tbody id="summaryRows">
 											<c:forEach items="${cart.shoppingCartItems}" var="shoppingCartItem">
@@ -807,7 +807,7 @@ function initPayment(paymentSelection) {
 											<!-- subtotals -->
 											<c:forEach items="${order.orderTotalSummary.totals}" var="total">
 												<c:if test="${total.orderTotalCode!='order.total.total'}">
-												<tr id="cart-subtotal-${total.orderTotalCode}" class="cart-subtotal subt"> 
+												<tr id="cart-subtotal-${total.orderTotalCode}" class="cart-subtotal subt">
 														<td class="order-total-label">
 														<c:choose>
 																<c:when test="${total.orderTotalCode=='order.total.discount'}">
@@ -817,12 +817,12 @@ function initPayment(paymentSelection) {
 																	<s:message code="${total.orderTotalCode}" text="${total.orderTotalCode}"/>
 																</c:otherwise>
 														</c:choose>
-														</td> 
-														<td><strong><c:choose><c:when test="${total.orderTotalCode=='order.total.discount'}"><font color="red">- <sm:monetary value="${total.value}" /></span></c:when><c:otherwise><sm:monetary value="${total.value}" /></c:otherwise></c:choose></strong></td> 
-												</tr> 
+														</td>
+														<td><strong><c:choose><c:when test="${total.orderTotalCode=='order.total.discount'}"><font color="red">- <sm:monetary value="${total.value}" /></span></c:when><c:otherwise><sm:monetary value="${total.value}" /></c:otherwise></c:choose></strong></td>
+												</tr>
 												</c:if>
 											</c:forEach>
-											
+
 											<!-- Shipping box THIS IS ALL BROKEN -->
 											<c:if test="${shippingQuote!=null}">
 											<tr class="shipping">
@@ -837,7 +837,7 @@ function initPayment(paymentSelection) {
 							 							<br/>
 							 							<font color="orange"><s:message code="label.shipping.nopostalcode" text="A shipping quote will be available after filling the postal code"/></font>
 							 							<br/><br/>
-							 						</c:if>	
+							 						</c:if>
 													<table id="shippingOptions">
 														<c:forEach items="${shippingQuote.shippingOptions}" var="option" varStatus="status">
 															<tr>
@@ -856,7 +856,7 @@ function initPayment(paymentSelection) {
 															</tr>
 															</c:if>
 														</c:forEach>
-													</table>						 													        			
+													</table>
 								        			</c:when>
 								        			<c:otherwise>
 														<c:choose>
@@ -876,7 +876,7 @@ function initPayment(paymentSelection) {
 											       					<c:otherwise>
 											       						<c:choose>
 											       							<c:when test="${shippingQuote.shippingReturnCode=='NO_POSTAL_CODE'}">
-											       								<div id="shippingSection" class="control-group"> 
+											       								<div id="shippingSection" class="control-group">
 											       								<strong>
 											       									<font color="orange"><s:message code="label.shipping.nopostalcode" text="A shipping quote will be available after filling the postal code"/></font>
 											       								</strong>
@@ -903,11 +903,11 @@ function initPayment(paymentSelection) {
 											</td>
 											</tr>
 											</c:if>
-											
+
 											<tr id="totalRow" class="total-box order-total">
 												<th><s:message code="order.total.total" text="Total"/></th>
 												<td><strong><span class="amount grand-total"><sm:monetary value="${order.orderTotalSummary.total}"/></td>
-											</tr>						
+											</tr>
 										</tfoot>
 									</table>
 								</div>
@@ -923,7 +923,7 @@ function initPayment(paymentSelection) {
 											class="paymentMethodSelected"
 											name="${paymentMethod.paymentMethodCode}"
 											aria-controls="#${paymentMethod.paymentType}" role="tab"
-											data-toggle="tab"> 
+											data-toggle="tab">
 
 														<h5>
 															<s:message
@@ -938,10 +938,10 @@ function initPayment(paymentSelection) {
 								</ul>
 								<!--  redit card https://codepen.io/llgruff/pen/JdyJWR -->
 								<div class="v-margin20">
-								
-								
+
+
 								<div class="tab-content">
-																
+
 											<c:forEach items="${paymentMethods}" var="paymentMethod">
 												<div
 													class="payment-tab tab-pane <c:choose><c:when test="${order.paymentMethodType!=null && order.paymentMethodType==paymentMethod.paymentType}">active</c:when><c:otherwise><c:if test="${order.paymentMethodType==null && paymentMethod.defaultSelected==true}">active</c:if></c:otherwise></c:choose>"
@@ -988,7 +988,7 @@ function initPayment(paymentSelection) {
 											<input type="hidden" id="paymentModule" name="paymentModule"
 												value="<c:choose><c:when test="${order.paymentModule!=null}"><c:out value="${order.paymentModule}"/></c:when><c:otherwise><c:out value="${paymentModule}" /></c:otherwise></c:choose>" />
 										</div>
-								
+
 								</div>
 
 								<c:if
@@ -1019,15 +1019,15 @@ function initPayment(paymentSelection) {
 										</div>
 									</div>
 								</c:if>
-								
+
 								<div id="formErrorMessage" class="alert"></div>
 								<div class="order-button-payment">
-												<button id="submitOrder" type="button" class=" 
-												<c:if test="${errorMessages!=null}"> btn-disabled</c:if>" 
+												<button id="submitOrder" type="button" class="
+												<c:if test="${errorMessages!=null}"> btn-disabled</c:if>"
 												<c:if test="${errorMessages!=null}"> disabled="true"</c:if>
 												><s:message code="button.label.submitorder" text="Submit order"/>
 												</button>
-			
+
 												<!-- submit can be a post or a pre ajax query -->
 								</div>
 							</div>
@@ -1038,4 +1038,4 @@ function initPayment(paymentSelection) {
 				</div>
 			</div>
 		</div>
-		<!-- checkout-area end -->	
+		<!-- checkout-area end -->

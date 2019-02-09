@@ -50,6 +50,13 @@
 			<version>${spring-vault-core-version}</version>
 		</dependency>
 
+		<!-- Springboot dev tools - alex -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency> -->
+		<!-- Springboot dev tools - alex -->
 
 		<!-- https://mvnrepository.com/artifact/javax.inject/javax.inject -->
 		<dependency>
@@ -132,8 +139,8 @@
 			<artifactId>json-simple</artifactId>
 			<version>${simple-json-version}</version>
 		</dependency>
-		
-		<!-- sm-search -->		
+
+		<!-- sm-search -->
 		<dependency>
 			<groupId>com.shopizer</groupId>
 			<artifactId>sm-search</artifactId>
@@ -148,9 +155,9 @@
 					<artifactId>jest</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency> 
-		
-		<!-- Elastic search -->				
+		</dependency>
+
+		<!-- Elastic search -->
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>

@@ -65,29 +65,29 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
 	private Set<ProductDescription> descriptions = new HashSet<ProductDescription>();
-	
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="product")
 	private Set<ProductAvailability> availabilities = new HashSet<ProductAvailability>();
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
 	private Set<ProductAttribute> attributes = new HashSet<ProductAttribute>();
-	
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "product")//cascade is set to remove because product save requires logic to create physical image first and then save the image id in the database, cannot be done in cascade
 	private Set<ProductImage> images = new HashSet<ProductImage>();
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
 	private Set<ProductRelationship> relationships = new HashSet<ProductRelationship>();
 
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="MERCHANT_ID", nullable=false)
 	private MerchantStore merchantStore;
-	
+
 	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
-	@JoinTable(name = "PRODUCT_CATEGORY", schema=SchemaConstant.SALESMANAGER_SCHEMA, joinColumns = { 
+	@JoinTable(name = "PRODUCT_CATEGORY", schema=SchemaConstant.SALESMANAGER_SCHEMA, joinColumns = {
 			@JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false) }
-			, 
-			inverseJoinColumns = { @JoinColumn(name = "CATEGORY_ID", 
+			,
+			inverseJoinColumns = { @JoinColumn(name = "CATEGORY_ID",
 					nullable = false, updatable = false) }
 	)
 	@Cascade({
@@ -95,21 +95,21 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 		org.hibernate.annotations.CascadeType.LOCK,
 		org.hibernate.annotations.CascadeType.REFRESH,
 		org.hibernate.annotations.CascadeType.REPLICATE
-		
+
 	})
 	private Set<Category> categories = new HashSet<Category>();
-	
+
 	@Column(name="DATE_AVAILABLE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateAvailable = new Date();
-	
-	
+
+
 	@Column(name="AVAILABLE")
 	private boolean available = true;
-	
+
 	@Column(name="PREORDER")
 	private boolean preOrder = false;
-	
+
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
 	@JoinColumn(name="MANUFACTURER_ID", nullable=true)
@@ -125,7 +125,7 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 
 	@Column(name = "PRODUCT_VIRTUAL")
 	private boolean productVirtual = false;
-	
+
 	@Column(name = "PRODUCT_SHIP")
 	private boolean productShipeable = false;
 
@@ -153,7 +153,7 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 
 	@Column(name = "QUANTITY_ORDERED")
 	private Integer productOrdered;
-	
+
 	@Column(name = "SORT_ORDER")
 	private Integer sortOrder = new Integer(0);
 
@@ -161,31 +161,31 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 	@Pattern(regexp="^[a-zA-Z0-9_]*$")
 	@Column(name = "SKU")
 	private String sku;
-	
+
 	/**
 	 * External system reference SKU/ID
 	 */
 	@Column(name = "REF_SKU")
 	private String refSku;
-	
+
 	@Column(name="COND", nullable = true)
 	private ProductCondition condition;
-	
+
 	/**
 	 * RENTAL ADDITIONAL FIELDS
 	 */
 
 	@Column(name="RENTAL_STATUS", nullable = true)
 	private RentalStatus rentalStatus;
-	
+
 
 	@Column(name="RENTAL_DURATION", nullable = true)
 	private Integer rentalDuration;
-	
+
 	@Column(name="RENTAL_PERIOD", nullable = true)
 	private Integer rentalPeriod;
 
-	
+
 	public Integer getRentalPeriod() {
 		return rentalPeriod;
 	}
@@ -205,7 +205,7 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 	/**
 	 * End rental fields
 	 */
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="CUSTOMER_ID", nullable=true)
 	private Customer owner;
@@ -437,7 +437,7 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 	public boolean isAvailable() {
 		return available;
 	}
-	
+
 	public boolean isProductShipeable() {
 		return productShipeable;
 	}
@@ -446,14 +446,14 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 		this.productShipeable = productShipeable;
 	}
 
-	
+
 	public ProductDescription getProductDescription() {
 		if(this.getDescriptions()!=null && this.getDescriptions().size()>0) {
 			return this.getDescriptions().iterator().next();
 		}
 		return null;
 	}
-	
+
 	public ProductImage getProductImage() {
 		ProductImage productImage = null;
 		if(this.getImages()!=null && this.getImages().size()>0) {
@@ -466,7 +466,7 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 		}
 		return productImage;
 	}
-	
+
 	public boolean isPreOrder() {
 		return preOrder;
 	}
@@ -498,7 +498,7 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 	public void setRentalStatus(RentalStatus rentalStatus) {
 		this.rentalStatus = rentalStatus;
 	}
-	
+
 	public Customer getOwner() {
 		return owner;
 	}

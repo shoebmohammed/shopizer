@@ -26,35 +26,35 @@ import com.salesmanager.core.model.reference.currency.Currency;
  */
 @Service("pricingService")
 public class PricingServiceImpl implements PricingService {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(PricingServiceImpl.class);
-	
+
 
 	@Inject
 	private ProductPriceUtils priceUtil;
-	
+
 	@Override
 	public FinalPrice calculateProductPrice(Product product) throws ServiceException {
 		return priceUtil.getFinalPrice(product);
 	}
-	
+
 	@Override
 	public FinalPrice calculateProductPrice(Product product, Customer customer) throws ServiceException {
 		/** TODO add rules for price calculation **/
 		return priceUtil.getFinalPrice(product);
 	}
-	
+
 	@Override
 	public FinalPrice calculateProductPrice(Product product, List<ProductAttribute> attributes) throws ServiceException {
 		return priceUtil.getFinalProductPrice(product, attributes);
 	}
-	
+
 	@Override
 	public FinalPrice calculateProductPrice(Product product, List<ProductAttribute> attributes, Customer customer) throws ServiceException {
 		/** TODO add rules for price calculation **/
 		return priceUtil.getFinalProductPrice(product, attributes);
 	}
-	
+
 	@Override
 	public BigDecimal calculatePriceQuantity(BigDecimal price, int quantity) {
 		return price.multiply(new BigDecimal(quantity));
@@ -70,7 +70,7 @@ public class PricingServiceImpl implements PricingService {
 			throw new ServiceException(e);
 		}
 	}
-	
+
 	@Override
 	public String getDisplayAmount(BigDecimal amount, Locale locale,
 			Currency currency, MerchantStore store) throws ServiceException {
@@ -108,5 +108,5 @@ public class PricingServiceImpl implements PricingService {
 	}
 
 
-	
+
 }

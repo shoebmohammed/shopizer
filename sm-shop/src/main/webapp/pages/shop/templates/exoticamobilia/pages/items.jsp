@@ -9,35 +9,35 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %> 
- 
+<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %>
+
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
- 
+
  <script src="<c:url value="/resources/js/jquery.easing.1.3.js" />"></script>
  <script src="<c:url value="/resources/js/jquery.quicksand.js" />"></script>
  <script src="<c:url value="/resources/js/jquery-sort-filter-plugin.js" />"></script>
  <script src="<c:url value="/resources/js/jquery.alphanumeric.pack.js" />"></script>
- 
- 
+
+
  <script type="text/html" id="productBoxTemplate">
 {{#products}}
 <div itemscope itemtype="http://schema.org/Enumeration" class="col-md-4 productItem" item-order="{{sortOrder}}" item-name="{{description.name}}" item-price="{{price}}" data-id="{{id}}" class="col-sm-4">
 <div class="box-style-4 white-bg object-non-visible animated object-visible">
- 	{{#description.highlights}}  
+ 	{{#description.highlights}}
     <div class="ribbon-wrapper-green">
    		<div class="ribbon-green">
-   			{{description.highlights}} 
+   			{{description.highlights}}
    		</div>
    	</div>
     {{/description.highlights}}
 	{{^canBePurchased}}
 		<div class="sold-out-box">
 	    			<span class="sold-out-text"><s:message code="label.soldout" text="Sold out" /></span>
-	  	</div> 
+	  	</div>
 	{{/canBePurchased}}
 	<div class="product-image">
-    {{#image}}                              
+    {{#image}}
 	<img class="product-img" src="<c:url value=""/>{{image.imageUrl}}"><a class="overlay" href="<c:url value="/shop/product/" />{{description.friendlyUrl}}.html<sm:breadcrumbParam/>"><img class="product-img" src="<c:url value="/"/>{{image.imageUrl}}"></a>
     {{/image}}
     </div>
@@ -55,7 +55,7 @@ response.setDateHeader ("Expires", -1);
 		<div class="clearfix">
 			<a class="btn btn-default pull-left" href="<c:url value="/shop/product/" />{{description.friendlyUrl}}.html<sm:breadcrumbParam/>" class="details"><s:message code="button.label.view" text="Details" /></a>
 		<c:if test="${requestScope.CONFIGS['allowPurchaseItems'] == true}">
-		{{#canBePurchased}}<a class="btn btn-buy pull-right addToCart" href="javascript:void(0);" class="addToCart" productId="{{id}}"><s:message code="button.label.addToCart" text="Add to cart" /></a>{{/canBePurchased}}
+		{{#canBePurchased}}<a class="btn btn-buy pull-right addToCart" href="javascript:void(0);" class="addToCart" productId="{{id}}"><s:message code="button.label.addToCart" text="Add to cart alex" /></a>{{/canBePurchased}}
 		</c:if>
 		</div>
 	</div>
@@ -69,110 +69,110 @@ response.setDateHeader ("Expires", -1);
 
  <!-- don't change that script except max_oroducts -->
  <script>
- 
+
  var START_COUNT_PRODUCTS = 0;
  var MAX_PRODUCTS = 30;
  var filter = null;
  var filterValue = null;
 
  $(function(){
-	 
+
     //price minimum/maximum
 	$('.numeric').numeric();
-    
-    
+
+
 	$('#filter').on('change', function() {
 		visualize();
 	});
-	
+
 	$('#priceFilterMinimum').on('blur', function() {
 		visualize();
 	});
-	
+
 	$('#priceFilterMaximum').on('blur', function() {
-		visualize()	
+		visualize()
 	});
-	
-	 
+
+
 	loadItemsProducts();
 
  });
- 
- 
+
+
  	function visualize() {
  		var orderBy = $("#filter").val();
 		var minimumPrice = $('#priceFilterMinimum').val();
 		var maximumPrice = $('#priceFilterMaximum').val();
-		
+
 		//orderProducts(orderBy);
 		orderProducts(orderBy, minimumPrice, maximumPrice);
  	}
- 
+
 	/** used for ordering and filtering **/
 	//function orderProducts(attribute, minimum, maximum) {
 	function orderProducts(attribute, minimumPrice, maximumPrice) {
-		
+
 		  if(minimumPrice==undefined) {
 			  minimumPrice = '';
 		  }
-		  
+
 		  if(maximumPrice==undefined) {
-			  maximumPrice = ''; 
+			  maximumPrice = '';
 		  }
-		
+
 		  //log('Attribute ' + attribute + ' Minimum price ' + minimumPrice + ' Maximum price ' + maximumPrice);
-		
+
 		  if(minimumPrice == '' && maximumPrice == '') {
-		  
-			  if(attribute=='item-order') {	  
+
+			  if(attribute=='item-order') {
 				  return;
 			  }
 		  }
-		
+
 		  // get the first collection
 		  var $prods = $('#productsContainer');
-		  
+
 
 		  // clone applications to get a second collection
 		  data = $('#hiddenProductsContainer').clone();
-		  
+
 		  //console.log('Data');
 		  //console.log(data);
-		  
-		  
+
+
 		  listedData = data.find('.productItem');
-		  
+
 		  //console.log('Listed Data');
 		  //console.log(listedData);
 
 		  filteredData = listedData;
 		  var $sortedData = null;
-	      
+
 		  if(minimumPrice != '' || maximumPrice != '') {
 			  //filter filteredData
 			  if(minimumPrice == '') {
 				  minimumPrice = '0';
 			  }
 			  filteredData = listedData.filter(function() {
-				 
+
 				   //log('Item price ' + $(this).attr('item-price'));
-			  
+
 				   var price = parseFloat($(this).attr('item-price'));
 				   if(maximumPrice != '') {
-					   return price >= parseFloat(minimumPrice) && price <= parseFloat(maximumPrice); 
+					   return price >= parseFloat(minimumPrice) && price <= parseFloat(maximumPrice);
 				   } else {
 					   return price >= parseFloat(minimumPrice);
 				   }
-				   
-			  }); 
-		  } 
-		  
+
+			  });
+		  }
+
 		  //console.log('After filtered Data');
 		  //console.log(filteredData);
 
-		  
-		  if(attribute!='item-order') {	
-		  
+
+		  if(attribute!='item-order') {
+
 		  	$sortedData = filteredData.sorted({
 		        by: function(v) {
 		        	if(attribute=='item-price') {
@@ -182,9 +182,9 @@ response.setDateHeader ("Expires", -1);
 		        	}
 		        }
 		 	 });
-		  
+
 		  } else {
-			  $sortedData =  filteredData; 
+			  $sortedData =  filteredData;
 		  }
 
 		  // finally, call quicksand
@@ -192,23 +192,23 @@ response.setDateHeader ("Expires", -1);
 		      duration: 800,
 		      easing: 'easeInOutQuad'
 		  });
-		
-		
+
+
 	}
- 
+
  	function loadItemsProducts() {
- 		
+
  		///products/public/page/{start}/{max}/{store}/{language}/manufacturer/{id}
  		var url = '<%=request.getContextPath()%>/services/public/products/page/' + START_COUNT_PRODUCTS + '/' + MAX_PRODUCTS + '/<c:out value="${requestScope.MERCHANT_STORE.code}"/>/<c:out value="${requestScope.LANGUAGE.code}"/>/manufacturer/<c:out value="${manufacturer.id}"/>';
-	 	
+
  		if(filter!=null) {
  			url = url + '/filter=' + filter + '/filter-value=' + filterValue +'';
  		}
  		loadProducts(url,'#productsContainer');
 
  	}
- 	
- 	
+
+
 /*  	function filterCategory(filterType,filterVal) {
 	 		//reset product section
 	 		$('#productsContainer').html('');
@@ -218,7 +218,7 @@ response.setDateHeader ("Expires", -1);
 	 		filterValue = filterVal;
 	 		loadItemsProducts();
  	} */
- 	
+
  	function buildProductsList(productList, divProductsContainer) {
  		log('Products-> ' + productList.products.length);
 		var productsTemplate = Hogan.compile(document.getElementById("productBoxTemplate").innerHTML);
@@ -227,7 +227,7 @@ response.setDateHeader ("Expires", -1);
 		$('#hiddenProductsContainer').append(productsRendred);
 		initBindings();
  	}
- 
+
 	function callBackLoadProducts(productList) {
 			totalCount = productList.productCount;
 			START_COUNT_PRODUCTS = START_COUNT_PRODUCTS + MAX_PRODUCTS;
@@ -239,22 +239,22 @@ response.setDateHeader ("Expires", -1);
 			$('#productsContainer').hideLoading();
 
 			visualize();
-			
+
 			var productQty = productList.productCount + ' <s:message code="label.search.items.found" text="item(s) found" />';
 			$('#products-qty').html(productQty);
 
 
 	}
-	
- 
- 
+
+
+
 
 </script>
 
 
 
 <div id="mainContent" class="container">
-			
+
 			  <header class="page-header row">
 			  <c:if test="${manufacturer.description.name!=null}">
 			  <div class="fixed-image section dark-translucent-bg parallax-bg-3">
@@ -263,16 +263,16 @@ response.setDateHeader ("Expires", -1);
 					</div>
 			  </div>
 			  </c:if>
-			  
+
 			  </header>
 
-			  
+
 			  <c:if test="${manufacturer.description.description!=null}">
 			  <div class="row">
 			  	<p class="lead"><c:out value="${manufacturer.description.description}" escapeXml="false"/></p>
 			  </div>
 			  </c:if>
-			  
+
 
 
 			   <div id="shop" class="row">
@@ -304,14 +304,14 @@ response.setDateHeader ("Expires", -1);
                      </form>
                   </div>
 						<div class="col-md-12">
-						
+
 							<div class="row product-list">
-							
-							
+
+
 							<!-- just copy that block for havimg products displayed -->
 							<!-- products are loaded by ajax -->
         					<div id="productsContainer" class="list-unstyled"></div>
-			
+
 							<nav id="button_nav" style="text-align:center;display:none;">
 								<button id="moreProductsButton" class="btn btn-primary btn-large" style="width:400px;" onClick="loadCategoryProducts();"><s:message code="label.product.moreitems" text="Display more items" />...</button>
 							</nav>
@@ -319,7 +319,7 @@ response.setDateHeader ("Expires", -1);
           					<!-- end block -->
 
 							</div>
-							
+
 							<!-- hidden -->
 							<div id="hiddenProductsContainer" style="display:none;"></div>
 
