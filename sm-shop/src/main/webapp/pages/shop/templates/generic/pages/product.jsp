@@ -95,7 +95,7 @@
 									</div>
 									<hr style="margin-top:0;">
 								</div>
-								<div style="height:60%; border:1px solid blue">
+								<div style="height:60%;">
 									<div class="checkbox">
 										<span>
 											<c:if test="${not product.productVirtual}">
@@ -161,18 +161,18 @@
 							</div>
 
 						</div>
-						<div class="col-md-3" style="height:auto; border:1px solid black; margin-left:60px;">
+						<div class="col-md-3" style="height:auto; margin-left:60px;">
 							<div class="exchange-button" style="width:80%; height:50px; margin-top:20px; margin-left:20px;">
 								<button class="btn" style="width:100%; height:100%; background:#2E2D25; color:white">Exchange</button>
 
 							</div>
-							<div class="exchange-info" style="width:80%; height:200px; border:1px solid black; margin-left:20px;">
-								<lable style="margin-left:10px">itemName : </lable>
-								<select class="browser-default custom-select">
+							<div class="exchange-info" style="width:80%; height:200px; border:1px solid grey; margin-left:20px;">
+								<lable style="margin-left:10px;">itemName : </lable>
+								<select class="browser-default custom-select" style="margin-left:20px; margin-top:10px;">
 									<option selected>Open this select menu</option>
-									<option value="1">One</option>
-									<option value="2">Two</option>
-									<option value="3">Three</option>
+									<option value="1">Computerbooks</option>
+									<option value="2">sciencebooks</option>
+									<option value="3">mobiles</option>
 								</select>
 							</div>
 
