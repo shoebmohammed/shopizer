@@ -1,7 +1,7 @@
 package com.salesmanager.core.model.content;
 
 public abstract class StaticContentFile extends ContentFile {
-	
+
 	private FileContentType fileContentType;
 
 	public FileContentType getFileContentType() {
@@ -13,6 +13,6 @@ public abstract class StaticContentFile extends ContentFile {
 	}
 
 
-	
+
 
 }

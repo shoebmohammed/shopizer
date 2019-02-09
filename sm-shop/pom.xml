@@ -110,6 +110,15 @@
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
 
+		<!-- alex>>> -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<scope>runtime</scope>
+		</dependency> -->
+		<!-- alex<<< -->
+
 
 		<!-- enables spring social -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-config -->
@@ -197,6 +206,30 @@
 			<version>${jwt.version}</version>
 		</dependency>
 
+		<!-- this is required if you building with java 11 (openjdk-11) -->
+		<!-- https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j -->
+		<dependency>
+	    <groupId>javax.xml.bind</groupId>
+	    <artifactId>jaxb-api</artifactId>
+	    <version>2.2.11</version>
+		</dependency>
+		<dependency>
+	    <groupId>com.sun.xml.bind</groupId>
+	    <artifactId>jaxb-core</artifactId>
+	    <version>2.2.11</version>
+		</dependency>
+		<dependency>
+	    <groupId>com.sun.xml.bind</groupId>
+	    <artifactId>jaxb-impl</artifactId>
+	    <version>2.2.11</version>
+		</dependency>
+		<dependency>
+	    <groupId>javax.activation</groupId>
+	    <artifactId>activation</artifactId>
+	    <version>1.1.1</version>
+		</dependency>
+		<!-- this is required if you building with java 11 (openjdk-11) -->
+
 	</dependencies>
 
 	<build>
@@ -237,7 +270,5 @@
 		</plugins>
 		<finalName>ROOT</finalName>
 	</build>
-
-
 
 </project>

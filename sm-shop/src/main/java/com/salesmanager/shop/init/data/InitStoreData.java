@@ -73,88 +73,88 @@ import java.util.List;
 
 @Component
 public class InitStoreData implements InitData {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(InitStoreData.class);
-	
+
 	@Inject
 	protected ProductService productService;
 
-	
+
 	@Inject
 	protected ProductPriceService productPriceService;
-	
+
 	@Inject
 	protected ProductAttributeService productAttributeService;
-	
+
 	@Inject
 	protected ProductOptionService productOptionService;
-	
+
 	@Inject
 	protected ProductOptionValueService productOptionValueService;
-	
+
 	@Inject
 	protected ProductAvailabilityService productAvailabilityService;
-	
+
 	@Inject
 	protected ProductImageService productImageService;
-	
+
 	@Inject
 	protected CategoryService categoryService;
-	
+
 	@Inject
 	protected MerchantStoreService merchantService;
-	
+
 	@Inject
 	protected ProductTypeService productTypeService;
-	
+
 	@Inject
 	protected LanguageService languageService;
-	
+
 	@Inject
 	protected CountryService countryService;
-	
+
 	@Inject
 	protected ZoneService zoneService;
-	
+
 	@Inject
 	protected CustomerService customerService;
-	
+
 	@Inject
 	protected ManufacturerService manufacturerService;
 
 	@Inject
 	protected CurrencyService currencyService;
-	
+
 	@Inject
 	protected OrderService orderService;
-	
+
 	@Inject
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Inject
 	protected GroupService   groupService;
-	
+
 	@Inject
 	private ProductRelationshipService productRelationshipService;
 
 	public void initInitialData() throws ServiceException {
-		
+
 
 		LOGGER.info("Starting the initialization of test data");
 		Date date = new Date(System.currentTimeMillis());
-		
+
 		//2 languages by default
 		Language en = languageService.getByCode("en");
 		Language fr = languageService.getByCode("fr");
-		
+
 		Country canada = countryService.getByCode("CA");
 		Zone zone = zoneService.getByCode("QC");
-		
+
 		//create a merchant
 		MerchantStore store = merchantService.getMerchantStore(MerchantStore.DEFAULT_STORE);
 		ProductType generalType = productTypeService.getProductType(ProductType.GENERAL_TYPE);
-		
-		
+
+
 		 Category book = new Category();
 		    book.setMerchantStore(store);
 		    book.setCode("computerbooks");
@@ -204,7 +204,7 @@ public class InitStoreData implements InitData {
 		    novs.setDescriptions(descriptions2);
 
 		    categoryService.create(novs);
-		    
+
 		    Category tech = new Category();
 		    tech.setMerchantStore(store);
 		    tech.setCode("tech");
@@ -226,7 +226,7 @@ public class InitStoreData implements InitData {
 		    descriptions4.add(techFrenchDescription);
 
 		    tech.setDescriptions(descriptions4);
-		    
+
 		    tech.setParent(book);
 
 		    categoryService.create(tech);
@@ -254,7 +254,7 @@ public class InitStoreData implements InitData {
 		    descriptions3.add(webFrenchDescription);
 
 		    web.setDescriptions(descriptions3);
-		    
+
 		    web.setParent(book);
 
 		    categoryService.create(web);
@@ -284,13 +284,13 @@ public class InitStoreData implements InitData {
 		    fictiondescriptions.add(fictionFrenchDescription);
 
 		    fiction.setDescriptions(fictiondescriptions);
-		    
+
 		    fiction.setParent(novs);
 
 		    categoryService.create(fiction);
 		    categoryService.addChild(novs, fiction);
-		    
-		    
+
+
 		    Category business = new Category();
 		    business.setMerchantStore(store);
 		    business.setCode("business");
@@ -313,12 +313,12 @@ public class InitStoreData implements InitData {
 		    businessdescriptions.add(businessFrenchDescription);
 
 		    business.setDescriptions(businessdescriptions);
-		    
+
 
 		    categoryService.create(business);
 
-		   		    
-		    
+
+
 		    Category cloud = new Category();
 		    cloud.setMerchantStore(store);
 		    cloud.setCode("cloud");
@@ -341,7 +341,7 @@ public class InitStoreData implements InitData {
 		    clouddescriptions.add(cloudFrenchDescription);
 
 		    cloud.setDescriptions(clouddescriptions);
-		    
+
 		    cloud.setParent(tech);
 
 		    categoryService.create(cloud);
@@ -361,8 +361,8 @@ public class InitStoreData implements InitData {
 		    oreilley.getDescriptions().add(oreilleyd);
 
 		    manufacturerService.create(oreilley);
-		    
-		    
+
+
 		    Manufacturer sams = new Manufacturer();
 		    sams.setMerchantStore(store);
 		    sams.setCode("sams");
@@ -374,7 +374,7 @@ public class InitStoreData implements InitData {
 		    sams.getDescriptions().add(samsd);
 
 		    manufacturerService.create(sams);
-		    
+
 		    Manufacturer packt = new Manufacturer();
 		    packt.setMerchantStore(store);
 		    packt.setCode("packt");
@@ -411,7 +411,7 @@ public class InitStoreData implements InitData {
 
 		    manufacturerService.create(novells);
 
-		    
+
 		    // PRODUCT 1
 
 		    Product product = new Product();
@@ -423,16 +423,16 @@ public class InitStoreData implements InitData {
 		    product.setType(generalType);
 		    product.setMerchantStore(store);
 		    product.setProductShipeable(true);
-		    
+
 		    // Availability
 		    ProductAvailability availability = new ProductAvailability();
 		    availability.setProductDateAvailable(date);
 		    availability.setProductQuantity(100);
 		    availability.setRegion("*");
 		    availability.setProduct(product);// associate with product
-		    
-		    
-		    
+
+
+
 		    ProductPrice dprice = new ProductPrice();
 		    dprice.setDefaultPrice(true);
 		    dprice.setProductPriceAmount(new BigDecimal(39.99));
@@ -444,7 +444,7 @@ public class InitStoreData implements InitData {
 		    dpd.setLanguage(en);
 
 		    dprice.getDescriptions().add(dpd);
-		    
+
 		    availability.getPrices().add(dprice);
 		    product.getAvailabilities().add(availability);
 
@@ -462,7 +462,7 @@ public class InitStoreData implements InitData {
 
 
 		    productService.create(product);
-		    
+
 		    try {
 		    	ClassPathResource classPathResource = new ClassPathResource("/demo/spring.png");
 		    	InputStream inStream = classPathResource.getInputStream();
@@ -470,7 +470,7 @@ public class InitStoreData implements InitData {
 		    } catch(Exception e) {
 		    	LOGGER.error("Error while reading demo file spring.png",e);
 		    }
-		    
+
 
 		    // PRODUCT 2
 
@@ -495,7 +495,7 @@ public class InitStoreData implements InitData {
 
 		    product2.getCategories().add(tech);
 		    product2.getCategories().add(web);
-		    
+
 		    // Availability
 		    ProductAvailability availability2 = new ProductAvailability();
 		    availability2.setProductDateAvailable(date);
@@ -514,12 +514,12 @@ public class InitStoreData implements InitData {
 		    dpd.setLanguage(en);
 
 		    dprice2.getDescriptions().add(dpd);
-		    
+
 		    availability2.getPrices().add(dprice2);
 		    product2.getAvailabilities().add(availability2);
-		    
+
 		    productService.create(product2);
-		    
+
 		    try {
 		    	ClassPathResource classPathResource = new ClassPathResource("/demo/node.jpg");
 		    	InputStream inStream = classPathResource.getInputStream();
@@ -552,7 +552,7 @@ public class InitStoreData implements InitData {
 		    product3.getDescriptions().add(description);
 
 		    product3.getCategories().add(cloud);
-		    
+
 		    // Availability
 		    ProductAvailability availability3 = new ProductAvailability();
 		    availability3.setProductDateAvailable(date);
@@ -571,14 +571,14 @@ public class InitStoreData implements InitData {
 		    dpd.setLanguage(en);
 
 		    dprice3.getDescriptions().add(dpd);
-		    
+
 		    availability3.getPrices().add(dprice3);
 		    product3.getAvailabilities().add(availability3);
-		    
-		    
+
+
 		    productService.create(product3);
 
-		    
+
 		    try {
 		    	ClassPathResource classPathResource = new ClassPathResource("/demo/paas.JPG");
 		    	InputStream inStream = classPathResource.getInputStream();
@@ -608,7 +608,7 @@ public class InitStoreData implements InitData {
 		    product4.getDescriptions().add(description);
 
 		    product4.getCategories().add(tech);
-		    
+
 		    // Availability
 		    ProductAvailability availability4 = new ProductAvailability();
 		    availability4.setProductDateAvailable(date);
@@ -628,14 +628,14 @@ public class InitStoreData implements InitData {
 		    dpd.setLanguage(en);
 
 		    dprice4.getDescriptions().add(dpd);
-		    
+
 		    availability4.getPrices().add(dprice4);
 		    product4.getAvailabilities().add(availability4);
- 
+
 		    productService.create(product4);
 
 
-		    
+
 		    try {
 		    	ClassPathResource classPathResource = new ClassPathResource("/demo/android.jpg");
 		    	InputStream inStream = classPathResource.getInputStream();
@@ -665,8 +665,8 @@ public class InitStoreData implements InitData {
 		    product5.getDescriptions().add(description);
 
 		    product5.getCategories().add(tech);
-		    
-		    
+
+
 		    // Availability
 		    ProductAvailability availability5 = new ProductAvailability();
 		    availability5.setProductDateAvailable(date);
@@ -694,7 +694,7 @@ public class InitStoreData implements InitData {
 		    productService.create(product5);
 
 
-		    
+
 		    try {
 		    	ClassPathResource classPathResource = new ClassPathResource("/demo/android2.jpg");
 		    	InputStream inStream = classPathResource.getInputStream();
@@ -725,7 +725,7 @@ public class InitStoreData implements InitData {
 		    product6.getDescriptions().add(description);
 
 		    product6.getCategories().add(business);
-		    
+
 		    // Availability
 		    ProductAvailability availability6 = new ProductAvailability();
 		    availability6.setProductDateAvailable(date);
@@ -749,11 +749,11 @@ public class InitStoreData implements InitData {
 
 		    availability6.getPrices().add(dprice6);
 		    product6.getAvailabilities().add(availability6);
-		    
+
 		    productService.create(product6);
 
 
-		    
+
 		    try {
 
 		    	ClassPathResource classPathResource = new ClassPathResource("/demo/google.jpg");
@@ -762,69 +762,69 @@ public class InitStoreData implements InitData {
 		    } catch(Exception e) {
 		    	LOGGER.error("Error while reading demo file google.jpg",e);
 		    }
-		    
+
 		    //featured items
-		    
+
 			ProductRelationship relationship = new ProductRelationship();
 			relationship.setActive(true);
 			relationship.setCode(ProductRelationshipType.FEATURED_ITEM.name());
 			relationship.setStore(store);
 			relationship.setRelatedProduct(product);
-			
+
 			productRelationshipService.saveOrUpdate(relationship);
-			
+
 			relationship = new ProductRelationship();
 			relationship.setActive(true);
 			relationship.setCode(ProductRelationshipType.FEATURED_ITEM.name());
 			relationship.setStore(store);
 			relationship.setRelatedProduct(product6);
-			
+
 			productRelationshipService.saveOrUpdate(relationship);
-			
-			
+
+
 			relationship = new ProductRelationship();
 			relationship.setActive(true);
 			relationship.setCode(ProductRelationshipType.FEATURED_ITEM.name());
 			relationship.setStore(store);
 			relationship.setRelatedProduct(product5);
-			
+
 			productRelationshipService.saveOrUpdate(relationship);
 
-			
+
 			relationship = new ProductRelationship();
 			relationship.setActive(true);
 			relationship.setCode(ProductRelationshipType.FEATURED_ITEM.name());
 			relationship.setStore(store);
 			relationship.setRelatedProduct(product2);
-			
+
 			productRelationshipService.saveOrUpdate(relationship);
-			
-		    
+
+
 		    //Create a customer (user name[nick] : shopizer password : password)
 
 		    Customer customer = new Customer();
 			customer.setMerchantStore(store);
 			customer.setEmailAddress("test@shopizer.com");
-			customer.setGender(CustomerGender.M);						
+			customer.setGender(CustomerGender.M);
 			customer.setAnonymous(false);
 			customer.setCompany("CSTI Consulting");
 			customer.setDateOfBirth(new Date());
 
 			customer.setDefaultLanguage(en);
 			customer.setNick("shopizer");
-			
+
 			String password = passwordEncoder.encode("password");
 			customer.setPassword(password);
-			
+
 			List<Group> groups = groupService.listGroup(GroupType.CUSTOMER);
-			  
+
 
 			for(Group group : groups) {
 				  if(group.getGroupName().equals(Constants.GROUP_CUSTOMER)) {
 					  customer.getGroups().add(group);
 				  }
 			}
-			
+
 		    Delivery delivery = new Delivery();
 		    delivery.setAddress("358 Du Languadoc");
 		    delivery.setCity( "Boucherville" );
@@ -833,8 +833,8 @@ public class InitStoreData implements InitData {
 		    delivery.setFirstName("Leonardo" );
 		    delivery.setLastName("DiCaprio" );
 		    delivery.setPostalCode("J4B-8J9" );
-		    delivery.setZone(zone);	    
-		    
+		    delivery.setZone(zone);
+
 		    Billing billing = new Billing();
 		    billing.setAddress("358 Du Languadoc");
 		    billing.setCity("Boucherville");
@@ -845,24 +845,24 @@ public class InitStoreData implements InitData {
 		    billing.setLastName("DiCaprio" );
 		    billing.setPostalCode("J4B-8J9");
 		    billing.setZone(zone);
-		    
+
 		    customer.setBilling(billing);
-		    customer.setDelivery(delivery);		
+		    customer.setDelivery(delivery);
 			customerService.create(customer);
-			
+
 			Currency currency = currencyService.getByCode("CAD");
 
 			OrderStatusHistory orderStatusHistory = new OrderStatusHistory();
-			
+
 			//create an order
-			
+
 			Order order = new Order();
 			order.setDatePurchased(new Date());
 			order.setCurrency(currency);
 			order.setLastModified(new Date());
 			order.setBilling(billing);
 
-			
+
 			order.setLocale(LocaleUtils.getLocale(store));
 
 			order.setCurrencyValue(new BigDecimal(0.98));//compared to based currency (not necessary)
@@ -874,115 +874,115 @@ public class InitStoreData implements InitData {
 			order.setIpAddress("ipAddress" );
 			order.setMerchant(store);
 			order.setOrderDateFinished(new Date());//committed date
-			
+
 			orderStatusHistory.setComments("We received your order");
 			orderStatusHistory.setCustomerNotified(1);
 			orderStatusHistory.setStatus(OrderStatus.ORDERED);
 			orderStatusHistory.setDateAdded(new Date() );
 			orderStatusHistory.setOrder(order);
-			order.getOrderHistory().add( orderStatusHistory );		
-			
+			order.getOrderHistory().add( orderStatusHistory );
+
 
 			order.setPaymentType(PaymentType.PAYPAL);
 			order.setPaymentModuleCode("paypal");
 			order.setStatus( OrderStatus.DELIVERED);
 			order.setTotal(new BigDecimal(23.99));
-			
-			
+
+
 			//OrderProductDownload - Digital download
 			OrderProductDownload orderProductDownload = new OrderProductDownload();
 			orderProductDownload.setDownloadCount(1);
-			orderProductDownload.setMaxdays(31);		
+			orderProductDownload.setMaxdays(31);
 			orderProductDownload.setOrderProductFilename("Your digital file name");
-			
+
 			//OrderProductPrice
 			OrderProductPrice oproductprice = new OrderProductPrice();
-			oproductprice.setDefaultPrice(true);	
+			oproductprice.setDefaultPrice(true);
 			oproductprice.setProductPrice(new BigDecimal(19.99) );
 			oproductprice.setProductPriceCode("baseprice" );
 			oproductprice.setProductPriceName("Base Price" );
-			//oproductprice.setProductPriceSpecialAmount(new BigDecimal(13.99) );	
+			//oproductprice.setProductPriceSpecialAmount(new BigDecimal(13.99) );
 
-			
+
 			//OrderProduct
 			OrderProduct oproduct = new OrderProduct();
 			oproduct.getDownloads().add( orderProductDownload);
 			oproduct.setOneTimeCharge( new BigDecimal(19.99) );
-			oproduct.setOrder(order);		
+			oproduct.setOrder(order);
 			oproduct.setProductName( "Product name" );
 			oproduct.setProductQuantity(1);
-			oproduct.setSku("TB12345" );		
+			oproduct.setSku("TB12345" );
 			oproduct.getPrices().add(oproductprice ) ;
-			
-			oproductprice.setOrderProduct(oproduct);		
+
+			oproductprice.setOrderProduct(oproduct);
 			orderProductDownload.setOrderProduct(oproduct);
 			order.getOrderProducts().add(oproduct);
 
 			//OrderTotal
-			OrderTotal subtotal = new OrderTotal();	
-			subtotal.setModule("summary" );		
+			OrderTotal subtotal = new OrderTotal();
+			subtotal.setModule("summary" );
 			subtotal.setSortOrder(0);
 			subtotal.setText("Summary" );
 			subtotal.setTitle("Summary" );
 			subtotal.setOrderTotalCode("subtotal");
 			subtotal.setValue(new BigDecimal(19.99 ) );
 			subtotal.setOrder(order);
-			
+
 			order.getOrderTotal().add(subtotal);
-			
-			OrderTotal tax = new OrderTotal();	
-			tax.setModule("tax" );		
+
+			OrderTotal tax = new OrderTotal();
+			tax.setModule("tax" );
 			tax.setSortOrder(1);
 			tax.setText("Tax" );
 			tax.setTitle("Tax" );
 			tax.setOrderTotalCode("tax");
 			tax.setValue(new BigDecimal(4) );
 			tax.setOrder(order);
-			
+
 			order.getOrderTotal().add(tax);
-			
-			OrderTotal total = new OrderTotal();	
-			total.setModule("total" );		
+
+			OrderTotal total = new OrderTotal();
+			total.setModule("total" );
 			total.setSortOrder(2);
 			total.setText("Total" );
 			total.setTitle("Total" );
 			total.setOrderTotalCode("total");
 			total.setValue(new BigDecimal(23.99) );
 			total.setOrder(order);
-			
+
 			order.getOrderTotal().add(total);
-			
-			orderService.create(order);	
-			
+
+			orderService.create(order);
+
 			LOGGER.info("Ending the initialization of test data");
-		
+
 	}
-	
+
 	private void saveFile(InputStream fis, String name, Product product) throws Exception {
-		
+
         if(fis==null) {
         	return;
         }
-		
+
 		final byte[] is = IOUtils.toByteArray( fis );
         final ByteArrayInputStream inputStream = new ByteArrayInputStream( is );
         final ImageContentFile cmsContentImage = new ImageContentFile();
         cmsContentImage.setFileName( name );
         cmsContentImage.setFile( inputStream );
         cmsContentImage.setFileContentType(FileContentType.PRODUCT);
-        
+
 
         ProductImage productImage = new ProductImage();
         productImage.setProductImage(name);
         productImage.setProduct(product);
 
-        
+
         productImageService.addProductImage(product, productImage, cmsContentImage);
-		
-		
+
+
 	}
 
 
-	
+
 
 }

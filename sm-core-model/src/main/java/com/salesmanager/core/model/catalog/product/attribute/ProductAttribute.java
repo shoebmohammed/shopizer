@@ -31,70 +31,70 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 )
 public class ProductAttribute extends SalesManagerEntity<Long, ProductAttribute> {
 	private static final long serialVersionUID = -6537491946539803265L;
-	
+
 	@Id
 	@Column(name = "PRODUCT_ATTRIBUTE_ID", unique=true, nullable=false)
 	@TableGenerator(name = "TABLE_GEN", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "PRODUCT_ATTR_SEQ_NEXT_VAL")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
 	private Long id;
 
-	
+
 	@Column(name="PRODUCT_ATRIBUTE_PRICE")
 	private BigDecimal productAttributePrice;
 
 
 	@Column(name="PRODUCT_ATTRIBUTE_SORT_ORD")
 	private Integer productOptionSortOrder;
-	
+
 	@Column(name="PRODUCT_ATTRIBUTE_FREE")
 	private boolean productAttributeIsFree;
-	
+
 
 	@Column(name="PRODUCT_ATTRIBUTE_WEIGHT")
 	private BigDecimal productAttributeWeight;
-	
+
 	@Column(name="PRODUCT_ATTRIBUTE_DEFAULT")
 	private boolean attributeDefault=false;
-	
+
 	@Column(name="PRODUCT_ATTRIBUTE_REQUIRED")
 	private boolean attributeRequired=false;
-	
+
 	/**
 	 * a read only attribute is considered as a core attribute addition
 	 */
 	@Column(name="PRODUCT_ATTRIBUTE_FOR_DISP")
 	private boolean attributeDisplayOnly=false;
-	
+
 
 	@Column(name="PRODUCT_ATTRIBUTE_DISCOUNTED")
 	private boolean attributeDiscounted=false;
-	
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="OPTION_ID", nullable=false)
 	private ProductOption productOption;
-	
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="OPTION_VALUE_ID", nullable=false)
 	private ProductOptionValue productOptionValue;
-	
-	
+
+
 	/**
 	 * This transient object property
 	 * is a utility used only to submit from a free text
 	 */
 	@Transient
 	private String attributePrice = "0";
-	
-	
+
+
 	/**
 	 * This transient object property
 	 * is a utility used only to submit from a free text
 	 */
 	@Transient
 	private String attributeSortOrder = "0";
-	
+
 
 
 	/**
@@ -103,7 +103,7 @@ public class ProductAttribute extends SalesManagerEntity<Long, ProductAttribute>
 	 */
 	@Transient
 	private String attributeAdditionalWeight = "0";
-	
+
 	public String getAttributePrice() {
 		return attributePrice;
 	}
@@ -115,7 +115,7 @@ public class ProductAttribute extends SalesManagerEntity<Long, ProductAttribute>
 	@ManyToOne(targetEntity = Product.class)
 	@JoinColumn(name = "PRODUCT_ID", nullable = false)
 	private Product product;
-	
+
 	public ProductAttribute() {
 	}
 
@@ -210,8 +210,8 @@ public class ProductAttribute extends SalesManagerEntity<Long, ProductAttribute>
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	
-	
+
+
 	public String getAttributeSortOrder() {
 		return attributeSortOrder;
 	}
@@ -227,7 +227,7 @@ public class ProductAttribute extends SalesManagerEntity<Long, ProductAttribute>
 	public void setAttributeAdditionalWeight(String attributeAdditionalWeight) {
 		this.attributeAdditionalWeight = attributeAdditionalWeight;
 	}
-	
+
 	public BigDecimal getProductAttributePrice() {
 		return productAttributePrice;
 	}
@@ -236,6 +236,8 @@ public class ProductAttribute extends SalesManagerEntity<Long, ProductAttribute>
 		this.productAttributePrice = productAttributePrice;
 	}
 
-
+	public String getAlexStore() {
+		return "from the alex Store";
+	}
 
 }

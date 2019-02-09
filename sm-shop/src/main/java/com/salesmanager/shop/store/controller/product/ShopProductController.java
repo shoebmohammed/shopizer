@@ -48,13 +48,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-
-
+// import com.salesmanager.core.business.services.catalog.product.ProductServiceImpl;
+import com.salesmanager.shop.model.catalog.product.ReadableImage;
 /**
  * Populates the product details page
  * @author Carl Samson
  *
  */
+ // @author alex Controller -> RestController
 @Controller
 @RequestMapping("/shop/product")
 public class ShopProductController {
@@ -92,6 +93,24 @@ public class ShopProductController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ShopProductController.class);
 
+	/**
+	 * @author alex
+	 * alex-api
+	 */
+	// route to return most-viewed
+	@RequestMapping("/most-viewed")
+	@ResponseBody
+	public List getMostViewed() {
+		return productService.getMostViewed();
+	}
+
+	// record history in alex_history table
+	@RequestMapping(value = "/alex-history", method = RequestMethod.POST)
+	public void setHistory(@RequestBody String pid) {
+		int p_id = Integer.parseInt(pid);
+		productService.setHistory(p_id);
+	}
+	// alex<<<
 
 	/**
 	 * Display product details with reference to caller page

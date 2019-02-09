@@ -18,12 +18,17 @@ import com.salesmanager.core.model.tax.taxclass.TaxClass;
 
 public interface ProductService extends SalesManagerEntityService<Long, Product> {
 
+	// alex>>>
+	void setHistory(int p_id);
+	List getMostViewed();
+	// alex<<<
+
 	void addProductDescription(Product product, ProductDescription description) throws ServiceException;
-	
+
 	ProductDescription getProductDescription(Product product, Language language);
-	
+
 	Product getProductForLocale(long productId, Language language, Locale locale) throws ServiceException;
-	
+
 	List<Product> getProductsForLocale(Category category, Language language, Locale locale) throws ServiceException;
 
 	List<Product> getProducts(List<Long> categoryIds) throws ServiceException;
@@ -50,6 +55,5 @@ public interface ProductService extends SalesManagerEntityService<Long, Product>
 	 */
 	Product getByCode(String productCode, Language language);
 
-	
+
 }
-	

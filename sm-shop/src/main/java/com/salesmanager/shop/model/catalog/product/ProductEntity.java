@@ -14,9 +14,9 @@ import com.salesmanager.core.model.catalog.product.RentalStatus;
  *
  */
 public class ProductEntity extends Product implements Serializable {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private BigDecimal price;
@@ -41,7 +41,7 @@ public class ProductEntity extends Product implements Serializable {
 	private String refSku;
 	private ProductCondition condition;
 	private BigDecimal discountPrice ;
-	
+
 	/**
 	 * RENTAL additional fields
 	 * @return
@@ -50,13 +50,13 @@ public class ProductEntity extends Product implements Serializable {
 	private int rentalDuration;
 	private int rentalPeriod;
 	private RentalStatus rentalStatus;
-	
+
 	/**
 	 * End RENTAL fields
 	 * @return
 	 */
-	
-	
+
+
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -196,13 +196,14 @@ public class ProductEntity extends Product implements Serializable {
 	public void setRentalStatus(RentalStatus rentalStatus) {
 		this.rentalStatus = rentalStatus;
 	}
-	
+
 	public int getRentalPeriod() {
 		return rentalPeriod;
 	}
 	public void setRentalPeriod(int rentalPeriod) {
 		this.rentalPeriod = rentalPeriod;
 	}
+
 
 
 }

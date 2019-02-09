@@ -1,5 +1,5 @@
 
- 
+
 
 	$(function(){
 		log('Check for customer account');
@@ -14,7 +14,7 @@
 		}
 
 	});
-	
+
 	function initUserAccount() {
 		var userName = getUserName();
 		log('userName ' + userName);
@@ -22,20 +22,20 @@
 			displayUserAccount(userName);
 		}
 	}
-	
+
 
 
 
 function displayUserAccount(userName){
 	url = getContextPath() + '/shop/customer/accountSummary.json?userName='+userName;
-	$.ajax({  
-		 type: 'GET',  
-		 url: url,  
-		 error: function(xhr) { 
+	$.ajax({
+		 type: 'GET',
+		 url: url,
+		 error: function(xhr) {
 			if(xhr.status==401) {//not authenticated
 				removeUserName();
 			}
-			 
+
 		 },
 		 success: function(customer) {
 			 log('From account summary');
@@ -49,7 +49,7 @@ function displayUserAccount(userName){
 						$('#customerAccount').append(customerLoggedInRendered);
 				 }
 			 }
-		} 
+		}
 	});
 }
 
@@ -57,10 +57,10 @@ function displayUserAccount(userName){
 
 /** returns the user name from the cookie **/
 function getUserName() {
-	
+
 	var user = $.cookie('user'); //should be [storecode_userName]
 	var code = new Array();
-	
+
 	if(user!=null) {
 		user = user.replace(/['"]+/g, '');
 		code = user.split('_');
@@ -77,7 +77,5 @@ function removeUserName() {
 	if(userName!=null) {
 		$.cookie('user',null, { expires: 1, path:'/' });
 	}
-	
+
 }
-
-

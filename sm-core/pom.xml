@@ -17,6 +17,8 @@
 	<url>http://www.shopizer.com</url>
 
 	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<geoip2.version>2.7.0</geoip2.version>
 		<javax.inject.version>1</javax.inject.version>
@@ -40,7 +42,7 @@
 			<artifactId>sm-core-modules</artifactId>
 			<version>${shopizer.version}</version>
 		</dependency>
-		
+
 
 
 		<!-- shipping rules -->

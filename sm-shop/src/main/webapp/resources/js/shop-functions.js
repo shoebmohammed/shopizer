@@ -26,7 +26,7 @@ function showSMLoading(element) {
 	} else {
 		$(element).showLoading();
 	}
-	
+
 }
 
 function hideSMLoading(element) {
@@ -38,6 +38,7 @@ function hideSMLoading(element) {
 }
 
 function loadProducts(url,divProductsContainer) {
+	// console.log('loadProducts -> alex', url);
 	showSMLoading(divProductsContainer);
 	$.ajax({
 			type: 'POST',
@@ -50,31 +51,31 @@ function loadProducts(url,divProductsContainer) {
 
 
 			},
-			error: function(jqXHR,textStatus,errorThrown) { 
+			error: function(jqXHR,textStatus,errorThrown) {
 				hideSMLoading(divProductsContainer);
 				alert('Error ' + jqXHR + "-" + textStatus + "-" + errorThrown);
 			}
-			
+
 	});
-	
-	
-	
+
+
+
 }
 
 
 
 function searchProducts(url,divProductsContainer,q,filter) {
-	
+
 	//log(q);
 
 	if(q==null || q=='') {
 		return;
 	}
-	
+
 	var query ='\"query\":{\"query_string\":{\"fields\" : [\"name^5\", \"description\", \"tags\"], \"query\" : \"' + q + '", \"use_dis_max\" : true }}';
 	var aggregations = '\"aggregations\": {\"categories\": {\"terms\": {\"field\": \"categories\"}}}';
-	
-	
+
+
     //category aggregations
 	//var aggregations = '\"aggregations\": {\"categories\": { \"terms\": {\"field\": \"categories\"}}}';
     var highlights = null;
@@ -90,9 +91,9 @@ function searchProducts(url,divProductsContainer,q,filter) {
 	}
 
 	var queryEnd = '}';
-	
+
 	query = queryStart + query + queryEnd;
-	
+
 	log(query);
 
 	$.ajax({
@@ -105,14 +106,13 @@ function searchProducts(url,divProductsContainer,q,filter) {
 			success: function(productList) {
 				callBackSearchProducts(productList);
 			},
-			error: function(jqXHR,textStatus,errorThrown) { 
+			error: function(jqXHR,textStatus,errorThrown) {
 				$(divProductsContainer).hideLoading();
 				alert('Error ' + jqXHR + "-" + textStatus + "-" + errorThrown);
 			}
-			
-	});
-	
-	
-	
-}
 
+	});
+
+
+
+}

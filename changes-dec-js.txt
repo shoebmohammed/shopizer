@@ -35,7 +35,15 @@ Route: /query/save and /reply/save
 UI of the reviews of stars.
 Colors are diplaying when you hover through product, and images background will change if hover through colors
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // Exchange offer
 
 made ui for exchange offer panel in product.jsp file
 create table ExchangeDiscount in db
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//most-veiwed
+
+most viewed items api-endpoints: /shop/product/most-viewed (GET) /shop/product/alex-history (POST) record views

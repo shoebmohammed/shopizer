@@ -11,15 +11,15 @@ import com.salesmanager.shop.model.security.PersistableGroup;
 public class PersistableCustomer extends CustomerEntity implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private String encodedPassword = null;
 	private String clearPassword = null;
 	private static final long serialVersionUID = 1L;
 	private List<PersistableCustomerAttribute> attributes;
 	private List<PersistableGroup> groups;
-	
-	
+
+
 	public void setAttributes(List<PersistableCustomerAttribute> attributes) {
 		this.attributes = attributes;
 	}
@@ -44,6 +44,6 @@ public class PersistableCustomer extends CustomerEntity implements Serializable 
 	public void setGroups(List<PersistableGroup> groups) {
 		this.groups = groups;
 	}
-	
+
 
 }

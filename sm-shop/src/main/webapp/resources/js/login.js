@@ -1,29 +1,29 @@
     $(function() {
-    	    	
+
     	$("#signinDrop").click(function(e){
     		//log('Signin drop down');
     		$("#loginError").hide();
     		e.preventDefault();
     	});
-    	
+
         $('.dropdown-menu').click(function(e) {
         	//log('Drop down menu clicked');
         	//e.preventDefault();
         	//e.stopPropagation();
         });
-        
+
         $('#registerLink').click(function(e) {
         	e.preventDefault();
         	e.stopPropagation();
         });
-        
+
         $("#login-button").click(function(e) {
         	//log('Calling login');
         	e.preventDefault();
         	e.stopPropagation();
         	login();
         });
-        
+
         $("#genericLogin-button").click(function(e) {
         	log('Calling genericLogin');
         	e.preventDefault();
@@ -32,10 +32,10 @@
         });
 
     });
-    
+
     function login() {
         	$("#loginError").hide();
-        	
+
         	var userName = $('#signin_userName').val();
         	var password = $('#signin_password').val();
         	var storeCode = $('#signin_storeCode').val();
@@ -44,13 +44,13 @@
         		 $("#loginError").show();
         		 return;
         	}
-        	
+
         	//log('Before showLoading');
-        	
+
         	//Need to have the logon table id signinPane
         	//showSMLoading('#pageContainer');
         	$('#signinPane').showLoading();
-        	
+
         	//log('username ' + userName + ' password ' + password + ' storeCode ' + storeCode);
 
             $.ajax({
@@ -63,7 +63,7 @@
                  'success': function(response) {
                      $('#signinPane').hideLoading();
                 	 //hideSMLoading('#pageContainer');
-					//log(response);
+					// log(response);
                     if (response.response.status==0) {//success
                 	   //SHOPPING_CART
                 	   //log(response.response.SHOPPING_CART);
@@ -72,11 +72,11 @@
                 		  /** save cart in cookie **/
        					  var cartCode = buildCartCode(response.response.SHOPPING_CART);
        					  $.cookie('cart',cartCode, { expires: 1024, path:'/' });
-          			      
+
                 	   }
                 	   //redirect to the same url
                 	   log('Before redirection');
-                	   location.href=  $(location).attr('href');
+                	   // location.href=  $(location).attr('href');
                     } else {
                         $("#loginError").html(getLoginErrorLabel());
                         $("#loginError").show();
@@ -86,9 +86,9 @@
             return false;
         //});
         }
-    
+
     function genericLogin() {
-    	
+
     	//error message
     	$("#loginError").remove();
     	var errMessageDiv = '<div id="loginError" class="alert alert-danger" role="alert">';
@@ -115,7 +115,9 @@
           	 dataType:'json',
              'success': function(response) {
             	 hideSMLoading('#pageContainer');
-				//log(response);
+               /* alex>>> */
+				        // console.log(response);
+                /* alex<<< */
                 if (response.response.status==0) {//success
             	   //SHOPPING_CART
             	   //log(response.response.SHOPPING_CART);
@@ -125,11 +127,11 @@
    					  var cartCode = buildCartCode(response.response.SHOPPING_CART);
    					  $.cookie('cart',cartCode, { expires: 1024, path:'/' });
    					  //cookie requires to be saved again
-      			      
+
             	   }
             	   //redirect to the same url
             	   //log('Before redirection');
-            	   location.href= getContextPath() + '/shop/customer/dashboard.html';
+            	   location.href = getContextPath() + '/shop/customer/dashboard';
                 } else {
            		   errorMessage = errMessageDiv + getLoginErrorLabel() + '</div>';
         		   $(errorMessage).prependTo('#login-form');

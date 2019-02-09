@@ -294,6 +294,35 @@
 				</c:if>
 			</div>
 		</div>
+
+		<!-- alex>>> -->
+		<div id="most-viewed" class="row">
+			<div class="col-xs-3">
+				<a href="#" class="thumbnail">
+      		<img src="../../../../../resources/img/index.jpeg" alt="...">
+    		</a>
+				<div>Some bullshit written by Alex</div>
+			</div>
+			<div class="col-xs-3">
+				<a href="#" class="thumbnail">
+      		<img src="../../../../../resources/img/index.jpeg" alt="...">
+    		</a>
+				<div>Some more bullshit written by Alex</div>
+			</div>
+			<div class="col-xs-3">
+				<a href="#" class="thumbnail">
+      		<img src="../../../../../resources/img/index.jpeg" alt="...">
+    		</a>
+				<div>Another bullshit written by Alex</div>
+			</div>
+			<div class="col-xs-3">
+				<a href="#" class="thumbnail">
+      		<img src="../../../../../resources/img/index.jpeg" alt="...">
+    		</a>
+				<div>And more bullshit written by Alex</div>
+			</div>
+		</div>
+		<!-- alex<<< -->
 	</div>
 </div>
 </div>
