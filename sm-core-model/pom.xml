@@ -117,8 +117,10 @@
 
 	</dependencies>
 
+
 	<build>
 		<plugins>
+
 			<plugin>
 				<!-- if building with java 11 change all -> ${java-version} to 1.8 -->
 				<groupId>org.apache.maven.plugins</groupId>

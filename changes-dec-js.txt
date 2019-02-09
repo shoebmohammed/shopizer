@@ -52,3 +52,12 @@ Add to compare and compare list added
 when the user clicks on add to compare from product page the product will be added to compare list
 to see compare list click on compare list
 added 1 file compare.jsp which is present in shopizer2/sm-shop/src/main/webapp/pages/shop/common/compare/compare.jsp
+// Offer Zone
+
+Changed the pom.xml for the project, sm-core, sm-core-model and sm-shop to avoid the version issues.
+
+configured the shopizer-properties.xml for dummy database.
+
+configured db properties to mysql database instead of h2 databse.
+
+Changed the navabar.jsp inside generic files to add Offer Zone link.

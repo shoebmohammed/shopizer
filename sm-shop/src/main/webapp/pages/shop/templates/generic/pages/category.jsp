@@ -10,129 +10,129 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %> 
- 
+<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %>
+
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
- 
+
  <script src="<c:url value="/resources/js/jquery.easing.1.3.js" />"></script>
  <script src="<c:url value="/resources/js/jquery.quicksand.js" />"></script>
  <script src="<c:url value="/resources/js/jquery-sort-filter-plugin.js" />"></script>
  <script src="<c:url value="/resources/js/jquery.alphanumeric.pack.js" />"></script>
- 
+
 
 
 
  <!-- don't change that script except max_oroducts -->
  <script>
- 
+
  var START_COUNT_PRODUCTS = 0;
  var MAX_PRODUCTS = 30;
  var filter = null;
  var filterValue = null;
 
  $(function(){
-	
+
 	/** specific to this template ***/
 	var tpl = $('#productBoxTemplate').text();
 	tpl = tpl.replace("COLUMN-SIZE", "4");//size of the div
 	$('#productBoxTemplate').text(tpl);
 	/*** ***/
-	 
+
     //price minimum/maximum
 	$('.numeric').numeric();
-    
-    
+
+
 	$('#filter').on('change', function() {
 		visualize();
 	});
-	
+
 	$('#priceFilterMinimum').on('blur', function() {
 		visualize();
 	});
-	
+
 	$('#priceFilterMaximum').on('blur', function() {
-		visualize()	
+		visualize()
 	});
-	
-	 
+
+
 	loadCategoryProducts();
 
  });
- 
- 
+
+
  	function visualize() {
  		var orderBy = $("#filter").val();
 		var minimumPrice = $('#priceFilterMinimum').val();
 		var maximumPrice = $('#priceFilterMaximum').val();
 		orderProducts(orderBy, minimumPrice, maximumPrice);
  	}
- 
+
 	/** used for ordering and filtering **/
 	//function orderProducts(attribute, minimum, maximum) {
 	function orderProducts(attribute, minimumPrice, maximumPrice) {
-		
+
 		  if(minimumPrice==undefined) {
 			  minimumPrice = '';
 		  }
-		  
+
 		  if(maximumPrice==undefined) {
-			  maximumPrice = ''; 
+			  maximumPrice = '';
 		  }
-		
+
 		  //log('Attribute ' + attribute + ' Minimum price ' + minimumPrice + ' Maximum price ' + maximumPrice);
-		
+
 		  if(minimumPrice == '' && maximumPrice == '') {
-		  
-			  if(attribute=='item-order') {	  
+
+			  if(attribute=='item-order') {
 				  return;
 			  }
 		  }
-		
+
 		  // get the first collection
 		  var $prods = $('#productsContainer');
-		  
+
 
 		  // clone applications to get a second collection
 		  data = $('#hiddenProductsContainer').clone();
-		  
+
 		  //console.log('Data');
 		  //console.log(data);
-		  
-		  
+
+
 		  listedData = data.find('.product');
-		  
+
 		  //console.log('Listed Data');
 		  //console.log(listedData);
 
 		  filteredData = listedData;
 		  var $sortedData = null;
-	      
+
 		  if(minimumPrice != '' || maximumPrice != '') {
 			  //filter filteredData
 			  if(minimumPrice == '') {
 				  minimumPrice = '0';
 			  }
 			  filteredData = listedData.filter(function() {
-				 
+
 				   //log('Item price ' + $(this).attr('item-price'));
-			  
+
 				   var price = parseFloat($(this).attr('item-price'));
 				   if(maximumPrice != '') {
-					   return price >= parseFloat(minimumPrice) && price <= parseFloat(maximumPrice); 
+					   return price >= parseFloat(minimumPrice) && price <= parseFloat(maximumPrice);
 				   } else {
 					   return price >= parseFloat(minimumPrice);
 				   }
-				   
-			  }); 
-		  } 
-		  
+
+			  });
+		  }
+
 		  //console.log('After filtered Data');
 		  //console.log(filteredData);
 
-		  
-		  if(attribute!='item-order') {	
-		  
+
+		  if(attribute!='item-order') {
+
 		  	$sortedData = filteredData.sorted({
 		        by: function(v) {
 		        	if(attribute=='item-price') {
@@ -142,9 +142,9 @@ response.setDateHeader ("Expires", -1);
 		        	}
 		        }
 		 	 });
-		  
+
 		  } else {
-			  $sortedData =  filteredData; 
+			  $sortedData =  filteredData;
 		  }
 
 		  // finally, call quicksand
@@ -152,21 +152,21 @@ response.setDateHeader ("Expires", -1);
 		      duration: 800,
 		      easing: 'easeInOutQuad'
 		  });
-		
-		
+
+
 	}
- 
+
  	function loadCategoryProducts() {
  		var url = '<%=request.getContextPath()%>/services/public/products/page/' + START_COUNT_PRODUCTS + '/' + MAX_PRODUCTS + '/<c:out value="${requestScope.MERCHANT_STORE.code}"/>/<c:out value="${requestScope.LANGUAGE.code}"/>/<c:out value="${category.description.friendlyUrl}"/>';
-	 	
+
  		if(filter!=null) {
  			url = url + '/filter=' + filter + '/filter-value=' + filterValue +'';
  		}
  		loadProducts(url,'#productsContainer');
 
  	}
- 	
- 	
+
+
  	function filterCategory(filterType,filterVal) {
 	 		//reset product section
 	 		$('#productsContainer').html('');
@@ -176,7 +176,7 @@ response.setDateHeader ("Expires", -1);
 	 		filterValue = filterVal;
 	 		loadCategoryProducts();
  	}
- 	
+
  	function buildProductsList(productList, divProductsContainer) {
  		log('Products-> ' + productList.products.length);
 		var productsTemplate = Hogan.compile(document.getElementById("productBoxTemplate").innerHTML);
@@ -185,7 +185,7 @@ response.setDateHeader ("Expires", -1);
 		$('#hiddenProductsContainer').append(productsRendred);
 		initBindings();
  	}
- 
+
 	function callBackLoadProducts(productList) {
 			totalCount = productList.productCount;
 			START_COUNT_PRODUCTS = START_COUNT_PRODUCTS + MAX_PRODUCTS;
@@ -196,22 +196,22 @@ response.setDateHeader ("Expires", -1);
 			}
 			hideSMLoading('#productsContainer');
 			visualize();
-			
+
 			var productQty = productList.productCount + ' <s:message code="label.search.items.found" text="item(s) found" />';
 			$('#products-qty').html(productQty);
 
 
 	}
-	
- 
- 
+
+
+
 
 </script>
 
 
 
 <div id="mainContent" class="container">
-	
+
 			  <header class="page-header row">
 			  <c:if test="${category.description.name!=null}">
 			  <div class="fixed-image section dark-translucent-bg parallax-bg-3">
@@ -223,13 +223,13 @@ response.setDateHeader ("Expires", -1);
 			  <jsp:include page="/pages/shop/templates/exoticamobilia/sections/breadcrumb.jsp" />
 			  </header>
 
-			  
+
 			  <c:if test="${category.description.description!=null}">
 			  <div class="container">
 			  	<p><c:out value="${category.description.description}" escapeXml="false"/></p>
 			  </div>
 			  </c:if>
-			  
+
 
 			<div class="bedroom-all-product-area ptb-80">
 			<div class="container">
@@ -297,10 +297,10 @@ response.setDateHeader ("Expires", -1);
 					              		<a href="javascript:filterCategory('BRAND','${manufacturer.id}')"><i class="fa fa-angle-right"></i>&nbsp;<c:out value="${manufacturer.description.name}" /></a></li>
 					              </c:forEach>
 					            </ul>
-					          </div>          
+					          </div>
           					</c:if>
 					</div>
 				</div>
 			</div>
 		</div>
-</div>		
+</div>

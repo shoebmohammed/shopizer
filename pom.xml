@@ -45,6 +45,13 @@
 
 	<dependencies>
 
+		<!--addnig spring-boot-devtools dependencies
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>-->
+
 		<dependency>
 			<groupId>org.springframework.vault</groupId>
 			<artifactId>spring-vault-core</artifactId>
@@ -175,7 +182,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-devtools</artifactId>
     </dependency>
-		
+
 		<dependency>
 			<groupId>io.searchbox</groupId>
 			<artifactId>jest</artifactId>
@@ -183,6 +190,20 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.5.1</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
 	<modules>
 		<module>sm-core-model</module>

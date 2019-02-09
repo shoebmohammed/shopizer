@@ -127,6 +127,7 @@ $(document).ready(function() {
 												<li><a href="<c:url value="/shop/pages/${content.seUrl}.html"/>" class="current">${content.name}</a></li>
 										</c:if>
 								</c:forEach>
+                <li><a href="https://www.flipkart.com/offers-store?otracker=nmenu_offer-zone">OFFER ZONE</a></li>
 								</ul>
 
 							</nav>

@@ -28,6 +28,7 @@
 		<swagger.version>2.7.0</swagger.version>
 	</properties>
 
+
 	<dependencies>
 
 		<!-- sm-core -->
@@ -63,7 +64,7 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -98,7 +99,7 @@
 				<artifactId>spring-boot-devtools</artifactId>
 				<optional>true</optional>
 			</dependency>
-	
+
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
