@@ -38,9 +38,8 @@ response.setDateHeader ("Expires", -1);
 									   </c:otherwise>
 									</c:choose>
 									<c:if test="${requestScope.HIDEACTION==null}">
-									<sec:authorize access="hasRole('AUTH_CUSTOMER') and fullyAuthenticated">
-  										|  
-									<a href="<c:url value="/shop/customer/review.html"/>?productId=${product.id}"><s:message code="label.product.reviews.write" text="Write a review" /></a>
+									<sec:authorize access="hasRole('AUTH_CUSTOMER') and fullyAuthenticated">	|  
+									<a href="<c:url value="/shop/customer/review.html"/>?productId=${product.id}"><s:message code="label.product.reviews.write" text="Write a review by pradeep" /></a>
 									</sec:authorize>
 									</c:if>
 								</div>

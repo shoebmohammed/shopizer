@@ -30,3 +30,6 @@ Fuction : saveQuery and saveReply
 Receiving Location: shopizer/sm-shop/src/main/java/com/salesmanager/shop/store/controller/product/ShopProductController.java
 Route: /query/save and /reply/save
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Reviews
+
+UI of the reviews of stars.

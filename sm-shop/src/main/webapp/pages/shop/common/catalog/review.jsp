@@ -20,7 +20,7 @@ response.setDateHeader ("Expires", -1);
 
 					<p class="lead"><s:message code="label.product.rate"/></p>
 					<div id="store.success" class="alert alert-success"	style="<c:choose><c:when test="${success!=null}">display:block;</c:when><c:otherwise>display:none;</c:otherwise></c:choose>">
-						<s:message code="message.productreview.created" text="You have successfully created a product review" />
+						<s:message code="message.productreview.created" text="You have successfully created a product review coool" />
 					</div>
 					
 					<div class="span12 no_margin main col-md-12">
