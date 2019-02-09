@@ -21,7 +21,7 @@ response.setDateHeader ("Expires", -1);
 
 <script type="text/javascript">
 //***** Search code *****
-$(document).ready(function() { 
+$(document).ready(function() {
 
     //post search form
    $(".searchButton").click(function(e){
@@ -36,9 +36,9 @@ $(document).ready(function() {
 	        $('#hiddenSearchForm').attr('action',uri).submit();
    });
 
-   
-   
-	
+
+
+
    var searchElements = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
 		queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -58,15 +58,15 @@ $(document).ready(function() {
         	}
     	}
 	});
-   
+
    searchElements.initialize();
 
 
 	var searchTemplate =  Hogan.compile([
 				     '<p class="suggestion-text"><font color="black">{{value}}</font></p>'
 	             ].join(''));
-	
-	
+
+
     //full view search
 	$('#searchField.typeahead').typeahead({
 	    hint: true,
@@ -80,7 +80,7 @@ $(document).ready(function() {
 	    	suggestion: function (data) { return searchTemplate.render(data); }
 	    }
 	});
-    
+
     //responsive
 	$('#responsiveSearchField.typeahead').typeahead({
 	    hint: true,
@@ -114,7 +114,7 @@ $(document).ready(function() {
 										<c:if test="${fn:length(category.children)>0}">
 										<ul>
 											<c:forEach items="${category.children}" var="child">
-												<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>		
+												<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>
 											</c:forEach>
 										</ul>
 										</c:if>
@@ -125,6 +125,7 @@ $(document).ready(function() {
 												<li><a href="<c:url value="/shop/pages/${content.seUrl}.html"/>" class="current">${content.name}</a></li>
 										</c:if>
 								</c:forEach>
+                <li><a href="https://www.flipkart.com/offers-store?otracker=nmenu_offer-zone">OFFER ZONE</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -146,7 +147,7 @@ $(document).ready(function() {
 										<c:if test="${fn:length(category.children)>0}">
 										<ul>
 											<c:forEach items="${category.children}" var="child">
-												<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>		
+												<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>
 											</c:forEach>
 										</ul>
 										</c:if>

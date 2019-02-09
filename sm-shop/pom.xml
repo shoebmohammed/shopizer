@@ -21,7 +21,7 @@
 		<main.basedir>${basedir}/../..</main.basedir>
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
 		<jwt.version>0.8.0</jwt.version>
-		<!-- Need to use the latest milestone in order to logon with latest FB 
+		<!-- Need to use the latest milestone in order to logon with latest FB
 			app version -->
 		<spring-social-facebook.version>3.0.0.M3</spring-social-facebook.version>
 		<guava.version>19.0</guava.version>
@@ -71,7 +71,7 @@
 			<version>${guava.version}</version>
 		</dependency>
 
-	
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
