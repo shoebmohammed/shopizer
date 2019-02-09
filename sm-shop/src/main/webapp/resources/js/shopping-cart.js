@@ -48,6 +48,8 @@
 		$('#pageContainer').showLoading();
 		var qty = '#qty-productId-'+ sku;
 		var quantity = $(qty).val();
+
+		console.log(quantity);
 		if(!quantity || quantity==null || quantity==0) {
 			quantity = 1;
 		}
@@ -238,7 +240,7 @@ function displayMiniCart(){
 	$.ajax({  
 		 type: 'GET',  
 		 url: getContextPath() + '/shop/cart/displayMiniCartByCode?shoppingCartCode='+cartCode,  
-		 cache:false,
+		 cache:false,shop-function
 		 error: function(e) { 
 			 $('#cart-box').removeClass('loading-indicator-overlay');/** manage manually cart loading**/
 			 $('#cartShowLoading').hide();

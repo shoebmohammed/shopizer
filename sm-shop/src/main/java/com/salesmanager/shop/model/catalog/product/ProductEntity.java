@@ -40,6 +40,7 @@ public class ProductEntity extends Product implements Serializable {
 	private String dateAvailable;
 	private String refSku;
 	private ProductCondition condition;
+	private BigDecimal discountPrice ;
 	
 	/**
 	 * RENTAL additional fields

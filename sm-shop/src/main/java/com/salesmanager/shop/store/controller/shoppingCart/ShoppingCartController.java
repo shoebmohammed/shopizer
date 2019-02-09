@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.salesmanager.core.business.services.catalog.product.PricingService;
 import com.salesmanager.core.business.services.catalog.product.ProductService;
@@ -88,7 +89,7 @@ import com.salesmanager.shop.utils.LanguageUtils;
  * @author Umesh
  */
 
-@Controller
+@RestController
 @RequestMapping("/shop/cart/")
 public class ShoppingCartController extends AbstractController {
 
@@ -119,6 +120,12 @@ public class ShoppingCartController extends AbstractController {
 	
 	@Inject
 	private LanguageUtils languageUtils;
+
+	@RequestMapping(value={"/tarun"}, method=RequestMethod.GET)
+	public String displayDashboard() throws Exception {
+		
+		return "tarun";
+	}
 	
 	
 

@@ -33,6 +33,7 @@ response.setDateHeader ("Expires", -1);
 			<c:if test="${requestScope.FEATURED_ITEM!=null || requestScope.SPECIALS!=null}" >
 			<div class="row-fluid">
 				<div class="span12">
+					<p style="color:blue; font-size:35px">tarun in landing page </p>
 					<ul class="nav nav-tabs home" id="product-tab">
 						<c:if test="${requestScope.FEATURED_ITEM!=null}" ><li class="active"><a href="#tab1"><s:message code="menu.catalogue-featured" text="Featured items" /></a></li></c:if>
 						<c:if test="${requestScope.SPECIALS!=null}" ><li<c:if test="${requestScope.FEATURED_ITEM==null}"> class="active"</c:if>><a href="#tab2"><s:message code="label.product.specials" text="Specials" /></a></li></c:if>

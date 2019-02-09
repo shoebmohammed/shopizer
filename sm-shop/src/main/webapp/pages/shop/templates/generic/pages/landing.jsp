@@ -25,6 +25,7 @@ response.setDateHeader ("Expires", -1);
 <%-- 			
 		<!-- idea of a banner -->
 		<section id="home-banner">
+			<p style="font-size:35px ; color:blue"> tarun harsh in landing</p>
 			  <article>
 			    <div class="banner-text">
 			      <h2>Barn wood siding</h2>
@@ -33,9 +34,11 @@ response.setDateHeader ("Expires", -1);
 	      			<div class="store-btn-addtocart">
 	      				<a class="more" href="#">More details</a>
 	      			</div>
-	   			  </div>
-			    </div>
-			    <div class="image-content"><img src="/resources/templates/generic/img/carlos-place.jpg" alt="text"></div>
+					 </div>
+					 <div style="width:300px; height:300px ; background:  blue"></div>
+				</div>
+				<!-- "/resources/templates/generic/img/carlos-place.jpg" -->
+			    <div class="image-content"><img src="/resources/templates/generi" alt="text"></div>
 			  </article>
 			  <article>
 			    <div class="banner-text">

@@ -15,9 +15,9 @@ response.setDateHeader ("Expires", -1);
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
-					<div id="review" class="review">
-								<div>
-									<div class="stars" id="productRating" style="width: 100px;">
+					<div id="review" class="review" style="display:flex">
+								<div style="display:flex">
+									<div class="stars" id="productRating" style="width: 100px; display: flex">
 									</div>
 									<script>
 									$(function() {
@@ -31,10 +31,10 @@ response.setDateHeader ("Expires", -1);
 									</script>
 									<c:choose>
 									   <c:when test="${product.ratingCount>0}">
-											<a href="#" onclick="$('a[href=\'#reviews\']').trigger('click');"><c:out value="${product.ratingCount}"/>&nbsp;<s:message code="label.product.customer.reviews" text="Customer reviews" /></a>
+											<a href="#" onclick="$('a[href=\'#reviews\']').trigger('click');"><c:out value="${product.ratingCount}"/>&nbsp;<s:message code="label.product.customer.reviews" text="reviews" /></a>
 									   </c:when>
 									   <c:otherwise>
-									   		0&nbsp;<s:message code="label.product.customer.reviews" text="Customer reviews" />
+									   		0&nbsp;<s:message code="label.product.customer.reviews" text="reviews" />
 									   </c:otherwise>
 									</c:choose>
 									<c:if test="${requestScope.HIDEACTION==null}">
