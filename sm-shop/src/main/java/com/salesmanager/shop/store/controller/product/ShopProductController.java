@@ -110,17 +110,17 @@ public class ShopProductController {
 	}
 
 //**Q&a section
-		@RequestMapping("/query/save")
+		@RequestMapping(value = {"/query/save"}, method=RequestMethod.POST)
     @ResponseBody
     public String saveQuery() {
         return "figure out how to save the query in db in this project";
     }
 
-		@RequestMapping("/reply/save")
+		@RequestMapping(value = {"/reply/save"}, method= RequestMethod.POST)
     @ResponseBody
     public String saveReply() {
         return "figure out how to save the reply in db in this project";
-    }
+    	}
 	//**
 
 	/**

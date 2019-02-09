@@ -102,8 +102,8 @@ response.setDateHeader ("Expires", -1);
         const productID = event.target.value;
         const userQuery = document.getElementById('userQuery').value;
         $.ajax({
-          url: '<c:url value="/shop/product/query/save"/>',
-          type: 'GET',
+          url: "/shop/product/query/save",
+          type: 'POST',
           dataType: "json",
           data: {
             userID: userID,
@@ -121,15 +121,16 @@ response.setDateHeader ("Expires", -1);
     $('.submitReply').click(function (event) {
       const userReply = $(event.target).prev().val();
       const productID = event.target.value;
+      var userID = getUserName();
       $.ajax({
-        url: 'shop/product/reply/save',
+        url: '/shop/product/reply/save',
         type: 'POST',
         dataType: "json",
         data: {
           userID: userID,
           productID: productID,
-          queryID: queryID,
-          query: userQuery,
+          // queryID: queryID,      //get query_id of this reply
+          reply: userReply,
         },
         success: function (response) {
           console.log(response);
