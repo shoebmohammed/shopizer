@@ -6,7 +6,13 @@ A button added to add product to wishlist, with ajax call logging some text.
 
 // Offer Zone
 
-Changes the navabar.jsp inside generic files to add Offer Zone link.
+Changed the pom.xml for the project, sm-core, sm-core-model and sm-shop to avoid the version issues.
+
+configured the shopizer-properties.xml for dummy database.
+
+configured db properties to mysql database instead of h2 databse.
+ 
+Changed the navabar.jsp inside generic files to add Offer Zone link.
 
 
 
