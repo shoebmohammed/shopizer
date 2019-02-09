@@ -153,6 +153,9 @@
 							</div>
 						</div>
 					</div>
+					<!-- Q&A section -->
+                <jsp:include page="/pages/shop/common/catalog/questionAndAnswer.jsp" />
+                <br><br>
 					<!-- product-simple-area-end -->
 					<div class="product-info-detailed pb-80 ptb-40-md ptb-20-xs">
 						<div class="row">
