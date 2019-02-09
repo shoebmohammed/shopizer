@@ -76,7 +76,6 @@ public class UserApi {
 			
 	    	List<ReadablePermission> permissions = userFacade.findPermissionsByGroups(ids);
 	    	user.setPermissions(permissions);
-			
 			return user;
 		} catch (Exception e) {
 			LOGGER.error("Error while getting user",e);

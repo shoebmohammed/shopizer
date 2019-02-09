@@ -33,3 +33,4 @@ Route: /query/save and /reply/save
 //Reviews
 
 UI of the reviews of stars.
+Colors are diplaying when you hover through product, and images background will change if hover through colors

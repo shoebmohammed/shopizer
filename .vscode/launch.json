@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - ShopApplication",
+      "request": "launch",
+      "mainClass": "com.salesmanager.shop.application.ShopApplication",
+      "projectName": "sm-shop"
+    }
+  ]
+}

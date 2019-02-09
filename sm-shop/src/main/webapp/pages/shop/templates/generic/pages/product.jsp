@@ -23,6 +23,7 @@
 
 <div id="shop" class="container">
 	<!-- all-hyperion-page-start -->
+	solution
 	<div class="all-hyperion-page">
 		<div class="container">
 			<div class="row">
