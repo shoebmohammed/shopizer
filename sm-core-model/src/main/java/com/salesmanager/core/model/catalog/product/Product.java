@@ -223,12 +223,10 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 		this.id = id;
 	}
 
-	@Override
 	public AuditSection getAuditSection() {
 		return auditSection;
 	}
 
-	@Override
 	public void setAuditSection(AuditSection auditSection) {
 		this.auditSection = auditSection;
 	}

@@ -52,7 +52,9 @@ response.setDateHeader ("Expires", -1);
 					</div>
 					<!--<div class="col-lg-2 col-md-3 hidden-sm col-xs-12 mar_b-30">-->
 					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mar_b-30">
+						<p style="color:blue; font-size:35px;">tarun harsh </p>
 						<div class="footer-wrapper">
+					
 						    <!--
 							<div class="footer-title">
 								<a href="#"><h3>useful links</h3></a>

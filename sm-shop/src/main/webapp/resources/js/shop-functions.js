@@ -44,7 +44,7 @@ function loadProducts(url,divProductsContainer) {
 			dataType: "json",
 			url: url,
 			success: function(productList) {
-
+				console.log(productList);
 				buildProductsList(productList,divProductsContainer);
 				callBackLoadProducts(productList);
 
