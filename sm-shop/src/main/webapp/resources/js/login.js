@@ -131,7 +131,7 @@
             	   }
             	   //redirect to the same url
             	   //log('Before redirection');
-            	   location.href = getContextPath() + '/shop/customer/dashboard';
+            	   location.href = getContextPath() + '/shop/customer/dashboard.html';
                 } else {
            		   errorMessage = errMessageDiv + getLoginErrorLabel() + '</div>';
         		   $(errorMessage).prependTo('#login-form');
