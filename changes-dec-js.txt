@@ -1,15 +1,17 @@
 // WishList
 
-wishlist button added with route /shop/cart/wishlist to display wishlist, but need to work more.
+wishlist button added with route /shop/cart/wishlist to display wishlist page returning text through ajax, but need to work more.
 
 A button added to add product to wishlist, with ajax call logging some text.
+addToWishList btn can be found in product.jsp.
 
 create table in mysql
 CREATE TABLE WISHLIST (WISHLIST_ID BIGINT(20) PRIMARY KEY AUTO_INCREMENT, CUSTOMER_ID BIGINT(20) NOT NULL, PRODUCT_ID BIGINT(20), FOREIGN KEY(CUSTOMER_ID) REFERENCES CUSTOMER(CUSTOMER_ID), FOREIGN KEY(PRODUCT_ID) REFERENCES PRODUCT(PRODUCT_ID));
 
-go to addToWishList file and add functionality to work with database controllers inorder to add products to wishlist.
+go to sm-shop/src/main/webapp/pages/shop/common/catalog/addToWishListProduct.jsp file and add functionality to work with database controllers inorder to add products to wishlist.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //Q&A section
 
 Create these two table
@@ -29,7 +31,9 @@ Request From: shopizer/sm-shop/src/main/webapp/pages/shop/common/catalog/questio
 Fuction : saveQuery and saveReply
 Receiving Location: shopizer/sm-shop/src/main/java/com/salesmanager/shop/store/controller/product/ShopProductController.java
 Route: /query/save and /reply/save
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //Reviews
 
 UI of the reviews of stars.
@@ -47,11 +51,17 @@ create table ExchangeDiscount in db
 //most-veiwed
 
 most viewed items api-endpoints: /shop/product/most-viewed (GET) /shop/product/alex-history (POST) record views
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // Compare
 Add to compare and compare list added
 when the user clicks on add to compare from product page the product will be added to compare list
 to see compare list click on compare list
 added 1 file compare.jsp which is present in shopizer2/sm-shop/src/main/webapp/pages/shop/common/compare/compare.jsp
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // Offer Zone
 
 Changed the pom.xml for the project, sm-core, sm-core-model and sm-shop to avoid the version issues.

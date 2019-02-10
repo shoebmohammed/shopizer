@@ -22,7 +22,6 @@
 
 <div id="shop" class="container-fluid">
 	<!-- all-hyperion-page-start -->
-	solution
 	<div class="all-hyperion-page">
 		<div class="container-fluid">
 			<div class="row">

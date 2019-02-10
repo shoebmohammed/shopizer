@@ -7,7 +7,7 @@ import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 
 public class IndexProduct implements JSONAware {
-	
+
 	private String name;
 	private Double price;
 	private List<String> categories;//category code
@@ -21,12 +21,12 @@ public class IndexProduct implements JSONAware {
 	private String id;//required by the search framework
 
 	@SuppressWarnings("unchecked")
-	@Override46239
+	@Override
 	public String toJSONString() {
-		
-		
-		
-		
+
+
+
+
 		JSONObject obj = new JSONObject();
 		obj.put("name", this.getName());
 		obj.put("price", this.getPrice());
@@ -43,7 +43,7 @@ public class IndexProduct implements JSONAware {
 			}
 			obj.put("categories", categoriesArray);
 		}
-		
+
 		if(tags!=null) {
 			JSONArray tagsArray = new JSONArray();
 			for(String tag : tags) {
@@ -51,7 +51,7 @@ public class IndexProduct implements JSONAware {
 			}
 			obj.put("tags", tagsArray);
 		}
-		
+
 		return obj.toJSONString();
 
 	}

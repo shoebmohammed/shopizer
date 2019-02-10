@@ -29,7 +29,7 @@ response.setDateHeader ("Expires", -1);
 								<form>
 									<div class="form-group login-page">
                     <!-- alex>>> -->
-										<label for="inputEmail"><s:message code="label.customer.email" text="Customer email address"/> <span>* Email Alex</span></label>
+										<label for="inputEmail"><s:message code="label.customer.email" text="Customer email address"/> </label>
                     <!-- alex<<< -->
 										<input type="text" class="form-control" id="signin_userName" name="signin_userName">
 									</div>
